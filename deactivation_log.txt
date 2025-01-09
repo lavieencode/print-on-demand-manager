@@ -1,0 +1,1135 @@
+2025-01-09 02:04:44 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:04:44 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:04:44 - [CRON] Removing init actions
+2025-01-09 02:04:44 - [CRON] Removing admin_init actions
+2025-01-09 02:04:44 - [CRON] Checking for scheduled events
+2025-01-09 02:04:44 - [CRON] Next scheduled timestamp: none
+2025-01-09 02:04:44 - [CRON] Clearing scheduled hook
+2025-01-09 02:04:44 - [CRON] Resetting singleton instance
+2025-01-09 02:04:44 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:11:58 - Starting deactivation process
+2025-01-09 02:11:58 - Creating Printify Platform instance
+2025-01-09 02:11:58 - Checking if cache is updating
+2025-01-09 02:11:58 - Cache is updating: no
+2025-01-09 02:11:58 - Attempting to cancel cache update
+2025-01-09 02:11:58 - Cache update cancelled: yes
+2025-01-09 02:11:58 - Clearing scheduled events
+2025-01-09 02:11:58 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:11:58 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:11:58 - [CRON] Removing init actions
+2025-01-09 02:11:58 - [CRON] Removing admin_init actions
+2025-01-09 02:11:58 - [CRON] Checking for scheduled events
+2025-01-09 02:11:58 - [CRON] Next scheduled timestamp: 2025-01-10 13:27:53
+2025-01-09 02:11:58 - [CRON] Unscheduling event at timestamp
+2025-01-09 02:11:58 - [CRON] Clearing scheduled hook
+2025-01-09 02:11:58 - [CRON] Resetting singleton instance
+2025-01-09 02:11:58 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:11:58 - Removing AJAX handlers
+2025-01-09 02:11:58 - Cleaning up options
+2025-01-09 02:11:58 - Deleting option: pod_printify_cache_updating
+2025-01-09 02:11:58 - Option deleted: no
+2025-01-09 02:11:58 - Deleting option: pod_printify_cache_progress
+2025-01-09 02:11:58 - Option deleted: yes
+2025-01-09 02:11:58 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 02:11:58 - Option deleted: no
+2025-01-09 02:11:58 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 02:11:58 - Option deleted: no
+2025-01-09 02:11:58 - Deleting option: pod_printify_last_cache_update
+2025-01-09 02:11:58 - Option deleted: no
+2025-01-09 02:11:58 - Deleting option: pod_printify_products_cache
+2025-01-09 02:11:58 - Option deleted: no
+2025-01-09 02:11:58 - Deleting option: pod_printify_products_cache_time
+2025-01-09 02:11:58 - Option deleted: no
+2025-01-09 02:11:58 - Removing transients
+2025-01-09 02:11:58 - Final cleanup of cron hooks
+2025-01-09 02:11:58 - Deactivation completed successfully
+2025-01-09 02:12:14 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:12:14 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:12:14 - [CRON] Removing init actions
+2025-01-09 02:12:14 - [CRON] Removing admin_init actions
+2025-01-09 02:12:14 - [CRON] Checking for scheduled events
+2025-01-09 02:12:14 - [CRON] Next scheduled timestamp: none
+2025-01-09 02:12:14 - [CRON] Clearing scheduled hook
+2025-01-09 02:12:14 - [CRON] Resetting singleton instance
+2025-01-09 02:12:14 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:18:28 - Starting deactivation process
+2025-01-09 02:18:28 - Creating Printify Platform instance
+2025-01-09 02:18:28 - Checking if cache is updating
+2025-01-09 02:18:28 - Cache is updating: no
+2025-01-09 02:18:28 - Attempting to cancel cache update
+2025-01-09 02:18:28 - Cache update cancelled: yes
+2025-01-09 02:18:28 - Clearing scheduled events
+2025-01-09 02:18:28 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:18:28 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:18:28 - [CRON] Removing init actions
+2025-01-09 02:18:28 - [CRON] Removing admin_init actions
+2025-01-09 02:18:28 - [CRON] Checking for scheduled events
+2025-01-09 02:18:28 - [CRON] Next scheduled timestamp: 2025-01-10 23:03:08
+2025-01-09 02:18:28 - [CRON] Unscheduling event at timestamp
+2025-01-09 02:18:28 - [CRON] Clearing scheduled hook
+2025-01-09 02:18:28 - [CRON] Resetting singleton instance
+2025-01-09 02:18:28 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:18:28 - Removing AJAX handlers
+2025-01-09 02:18:28 - Cleaning up options
+2025-01-09 02:18:28 - Deleting option: pod_printify_cache_updating
+2025-01-09 02:18:28 - Option deleted: no
+2025-01-09 02:18:28 - Deleting option: pod_printify_cache_progress
+2025-01-09 02:18:28 - Option deleted: yes
+2025-01-09 02:18:28 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 02:18:28 - Option deleted: no
+2025-01-09 02:18:28 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 02:18:28 - Option deleted: no
+2025-01-09 02:18:28 - Deleting option: pod_printify_last_cache_update
+2025-01-09 02:18:28 - Option deleted: no
+2025-01-09 02:18:28 - Deleting option: pod_printify_products_cache
+2025-01-09 02:18:28 - Option deleted: no
+2025-01-09 02:18:28 - Deleting option: pod_printify_products_cache_time
+2025-01-09 02:18:28 - Option deleted: no
+2025-01-09 02:18:28 - Removing transients
+2025-01-09 02:18:28 - Final cleanup of cron hooks
+2025-01-09 02:18:28 - Deactivation completed successfully
+2025-01-09 02:18:43 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:18:43 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:18:43 - [CRON] Removing init actions
+2025-01-09 02:18:43 - [CRON] Removing admin_init actions
+2025-01-09 02:18:43 - [CRON] Checking for scheduled events
+2025-01-09 02:18:43 - [CRON] Next scheduled timestamp: none
+2025-01-09 02:18:43 - [CRON] Clearing scheduled hook
+2025-01-09 02:18:43 - [CRON] Resetting singleton instance
+2025-01-09 02:18:43 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:23:42 - Starting deactivation process
+2025-01-09 02:23:42 - Creating Printify Platform instance
+2025-01-09 02:23:42 - Checking if cache is updating
+2025-01-09 02:23:42 - Cache is updating: no
+2025-01-09 02:23:42 - Attempting to cancel cache update
+2025-01-09 02:23:42 - Cache update cancelled: yes
+2025-01-09 02:23:42 - Clearing scheduled events
+2025-01-09 02:23:42 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:23:42 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:23:42 - [CRON] Removing init actions
+2025-01-09 02:23:42 - [CRON] Removing admin_init actions
+2025-01-09 02:23:42 - [CRON] Checking for scheduled events
+2025-01-09 02:23:42 - [CRON] Next scheduled timestamp: 2025-01-10 15:32:13
+2025-01-09 02:23:42 - [CRON] Unscheduling event at timestamp
+2025-01-09 02:23:42 - [CRON] Clearing scheduled hook
+2025-01-09 02:23:42 - [CRON] Resetting singleton instance
+2025-01-09 02:23:42 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:23:42 - Removing AJAX handlers
+2025-01-09 02:23:42 - Cleaning up options
+2025-01-09 02:23:42 - Deleting option: pod_printify_cache_updating
+2025-01-09 02:23:42 - Option deleted: no
+2025-01-09 02:23:42 - Deleting option: pod_printify_cache_progress
+2025-01-09 02:23:42 - Option deleted: yes
+2025-01-09 02:23:42 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 02:23:42 - Option deleted: no
+2025-01-09 02:23:42 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 02:23:42 - Option deleted: no
+2025-01-09 02:23:42 - Deleting option: pod_printify_last_cache_update
+2025-01-09 02:23:42 - Option deleted: no
+2025-01-09 02:23:42 - Deleting option: pod_printify_products_cache
+2025-01-09 02:23:42 - Option deleted: no
+2025-01-09 02:23:42 - Deleting option: pod_printify_products_cache_time
+2025-01-09 02:23:42 - Option deleted: no
+2025-01-09 02:23:42 - Removing transients
+2025-01-09 02:23:42 - Final cleanup of cron hooks
+2025-01-09 02:23:42 - Deactivation completed successfully
+2025-01-09 02:23:51 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:23:51 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:23:51 - [CRON] Removing init actions
+2025-01-09 02:23:51 - [CRON] Removing admin_init actions
+2025-01-09 02:23:51 - [CRON] Checking for scheduled events
+2025-01-09 02:23:51 - [CRON] Next scheduled timestamp: none
+2025-01-09 02:23:51 - [CRON] Clearing scheduled hook
+2025-01-09 02:23:51 - [CRON] Resetting singleton instance
+2025-01-09 02:23:51 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:28:09 - Starting deactivation process
+2025-01-09 02:28:09 - Creating Printify Platform instance
+2025-01-09 02:28:09 - Checking if cache is updating
+2025-01-09 02:28:09 - Cache is updating: no
+2025-01-09 02:28:09 - Attempting to cancel cache update
+2025-01-09 02:28:09 - Cache update cancelled: yes
+2025-01-09 02:28:09 - Clearing scheduled events
+2025-01-09 02:28:09 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:28:09 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:28:09 - [CRON] Removing init actions
+2025-01-09 02:28:09 - [CRON] Removing admin_init actions
+2025-01-09 02:28:09 - [CRON] Checking for scheduled events
+2025-01-09 02:28:09 - [CRON] Next scheduled timestamp: 2025-01-10 11:40:42
+2025-01-09 02:28:09 - [CRON] Unscheduling event at timestamp
+2025-01-09 02:28:09 - [CRON] Clearing scheduled hook
+2025-01-09 02:28:09 - [CRON] Resetting singleton instance
+2025-01-09 02:28:09 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:28:09 - Removing AJAX handlers
+2025-01-09 02:28:09 - Cleaning up options
+2025-01-09 02:28:09 - Deleting option: pod_printify_cache_updating
+2025-01-09 02:28:09 - Option deleted: no
+2025-01-09 02:28:09 - Deleting option: pod_printify_cache_progress
+2025-01-09 02:28:09 - Option deleted: yes
+2025-01-09 02:28:09 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 02:28:09 - Option deleted: no
+2025-01-09 02:28:09 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 02:28:09 - Option deleted: no
+2025-01-09 02:28:09 - Deleting option: pod_printify_last_cache_update
+2025-01-09 02:28:09 - Option deleted: no
+2025-01-09 02:28:09 - Deleting option: pod_printify_products_cache
+2025-01-09 02:28:09 - Option deleted: no
+2025-01-09 02:28:09 - Deleting option: pod_printify_products_cache_time
+2025-01-09 02:28:09 - Option deleted: no
+2025-01-09 02:28:09 - Removing transients
+2025-01-09 02:28:09 - Final cleanup of cron hooks
+2025-01-09 02:28:09 - Deactivation completed successfully
+2025-01-09 02:28:16 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:28:16 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:28:16 - [CRON] Removing init actions
+2025-01-09 02:28:16 - [CRON] Removing admin_init actions
+2025-01-09 02:28:16 - [CRON] Checking for scheduled events
+2025-01-09 02:28:16 - [CRON] Next scheduled timestamp: none
+2025-01-09 02:28:16 - [CRON] Clearing scheduled hook
+2025-01-09 02:28:16 - [CRON] Resetting singleton instance
+2025-01-09 02:28:16 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:31:17 - Starting deactivation process
+2025-01-09 02:31:17 - Creating Printify Platform instance
+2025-01-09 02:31:17 - Checking if cache is updating
+2025-01-09 02:31:17 - Cache is updating: no
+2025-01-09 02:31:17 - Attempting to cancel cache update
+2025-01-09 02:31:17 - Cache update cancelled: yes
+2025-01-09 02:31:17 - Clearing scheduled events
+2025-01-09 02:31:17 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:31:17 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:31:17 - [CRON] Removing init actions
+2025-01-09 02:31:17 - [CRON] Removing admin_init actions
+2025-01-09 02:31:17 - [CRON] Checking for scheduled events
+2025-01-09 02:31:17 - [CRON] Next scheduled timestamp: 2025-01-10 02:03:34
+2025-01-09 02:31:17 - [CRON] Unscheduling event at timestamp
+2025-01-09 02:31:17 - [CRON] Clearing scheduled hook
+2025-01-09 02:31:17 - [CRON] Resetting singleton instance
+2025-01-09 02:31:17 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:31:17 - Removing AJAX handlers
+2025-01-09 02:31:17 - Cleaning up options
+2025-01-09 02:31:17 - Deleting option: pod_printify_cache_updating
+2025-01-09 02:31:17 - Option deleted: no
+2025-01-09 02:31:17 - Deleting option: pod_printify_cache_progress
+2025-01-09 02:31:17 - Option deleted: yes
+2025-01-09 02:31:17 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 02:31:17 - Option deleted: no
+2025-01-09 02:31:17 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 02:31:17 - Option deleted: no
+2025-01-09 02:31:17 - Deleting option: pod_printify_last_cache_update
+2025-01-09 02:31:17 - Option deleted: no
+2025-01-09 02:31:17 - Deleting option: pod_printify_products_cache
+2025-01-09 02:31:17 - Option deleted: no
+2025-01-09 02:31:17 - Deleting option: pod_printify_products_cache_time
+2025-01-09 02:31:17 - Option deleted: no
+2025-01-09 02:31:17 - Removing transients
+2025-01-09 02:31:17 - Final cleanup of cron hooks
+2025-01-09 02:31:17 - Deactivation completed successfully
+2025-01-09 02:31:34 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:31:34 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:31:34 - [CRON] Removing init actions
+2025-01-09 02:31:34 - [CRON] Removing admin_init actions
+2025-01-09 02:31:34 - [CRON] Checking for scheduled events
+2025-01-09 02:31:34 - [CRON] Next scheduled timestamp: none
+2025-01-09 02:31:34 - [CRON] Clearing scheduled hook
+2025-01-09 02:31:34 - [CRON] Resetting singleton instance
+2025-01-09 02:31:34 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:33:32 - Starting deactivation process
+2025-01-09 02:33:32 - Creating Printify Platform instance
+2025-01-09 02:33:32 - Checking if cache is updating
+2025-01-09 02:33:32 - Cache is updating: no
+2025-01-09 02:33:32 - Attempting to cancel cache update
+2025-01-09 02:33:32 - Cache update cancelled: yes
+2025-01-09 02:33:32 - Clearing scheduled events
+2025-01-09 02:33:32 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:33:32 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:33:32 - [CRON] Removing init actions
+2025-01-09 02:33:32 - [CRON] Removing admin_init actions
+2025-01-09 02:33:32 - [CRON] Checking for scheduled events
+2025-01-09 02:33:32 - [CRON] Next scheduled timestamp: 2025-01-10 05:29:08
+2025-01-09 02:33:32 - [CRON] Unscheduling event at timestamp
+2025-01-09 02:33:32 - [CRON] Clearing scheduled hook
+2025-01-09 02:33:32 - [CRON] Resetting singleton instance
+2025-01-09 02:33:32 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:33:32 - Removing AJAX handlers
+2025-01-09 02:33:32 - Cleaning up options
+2025-01-09 02:33:32 - Deleting option: pod_printify_cache_updating
+2025-01-09 02:33:32 - Option deleted: no
+2025-01-09 02:33:32 - Deleting option: pod_printify_cache_progress
+2025-01-09 02:33:32 - Option deleted: yes
+2025-01-09 02:33:32 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 02:33:32 - Option deleted: no
+2025-01-09 02:33:32 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 02:33:32 - Option deleted: no
+2025-01-09 02:33:32 - Deleting option: pod_printify_last_cache_update
+2025-01-09 02:33:32 - Option deleted: no
+2025-01-09 02:33:32 - Deleting option: pod_printify_products_cache
+2025-01-09 02:33:32 - Option deleted: no
+2025-01-09 02:33:32 - Deleting option: pod_printify_products_cache_time
+2025-01-09 02:33:32 - Option deleted: no
+2025-01-09 02:33:32 - Removing transients
+2025-01-09 02:33:32 - Final cleanup of cron hooks
+2025-01-09 02:33:32 - Deactivation completed successfully
+2025-01-09 02:33:46 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:33:46 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:33:46 - [CRON] Removing init actions
+2025-01-09 02:33:46 - [CRON] Removing admin_init actions
+2025-01-09 02:33:46 - [CRON] Checking for scheduled events
+2025-01-09 02:33:46 - [CRON] Next scheduled timestamp: 2025-01-10 05:29:08
+2025-01-09 02:33:46 - [CRON] Unscheduling event at timestamp
+2025-01-09 02:33:46 - [CRON] Clearing scheduled hook
+2025-01-09 02:33:46 - [CRON] Resetting singleton instance
+2025-01-09 02:33:46 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:36:08 - Starting deactivation process
+2025-01-09 02:36:08 - Creating Printify Platform instance
+2025-01-09 02:36:08 - Checking if cache is updating
+2025-01-09 02:36:08 - Cache is updating: no
+2025-01-09 02:36:08 - Attempting to cancel cache update
+2025-01-09 02:36:08 - Cache update cancelled: yes
+2025-01-09 02:36:08 - Clearing scheduled events
+2025-01-09 02:36:08 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:36:08 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:36:08 - [CRON] Removing init actions
+2025-01-09 02:36:08 - [CRON] Removing admin_init actions
+2025-01-09 02:36:08 - [CRON] Checking for scheduled events
+2025-01-09 02:36:08 - [CRON] Next scheduled timestamp: 2025-01-10 17:27:20
+2025-01-09 02:36:08 - [CRON] Unscheduling event at timestamp
+2025-01-09 02:36:08 - [CRON] Clearing scheduled hook
+2025-01-09 02:36:08 - [CRON] Resetting singleton instance
+2025-01-09 02:36:08 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:36:08 - Removing AJAX handlers
+2025-01-09 02:36:08 - Cleaning up options
+2025-01-09 02:36:08 - Deleting option: pod_printify_cache_updating
+2025-01-09 02:36:08 - Option deleted: no
+2025-01-09 02:36:08 - Deleting option: pod_printify_cache_progress
+2025-01-09 02:36:08 - Option deleted: yes
+2025-01-09 02:36:08 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 02:36:08 - Option deleted: no
+2025-01-09 02:36:08 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 02:36:08 - Option deleted: no
+2025-01-09 02:36:08 - Deleting option: pod_printify_last_cache_update
+2025-01-09 02:36:08 - Option deleted: no
+2025-01-09 02:36:08 - Deleting option: pod_printify_products_cache
+2025-01-09 02:36:08 - Option deleted: no
+2025-01-09 02:36:08 - Deleting option: pod_printify_products_cache_time
+2025-01-09 02:36:08 - Option deleted: no
+2025-01-09 02:36:08 - Removing transients
+2025-01-09 02:36:08 - Final cleanup of cron hooks
+2025-01-09 02:36:08 - Deactivation completed successfully
+2025-01-09 02:36:15 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:36:15 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:36:15 - [CRON] Removing init actions
+2025-01-09 02:36:15 - [CRON] Removing admin_init actions
+2025-01-09 02:36:15 - [CRON] Checking for scheduled events
+2025-01-09 02:36:15 - [CRON] Next scheduled timestamp: none
+2025-01-09 02:36:15 - [CRON] Clearing scheduled hook
+2025-01-09 02:36:15 - [CRON] Resetting singleton instance
+2025-01-09 02:36:15 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:37:53 - Starting deactivation process
+2025-01-09 02:37:53 - Creating Printify Platform instance
+2025-01-09 02:37:53 - Checking if cache is updating
+2025-01-09 02:37:53 - Cache is updating: no
+2025-01-09 02:37:53 - Attempting to cancel cache update
+2025-01-09 02:37:53 - Cache update cancelled: yes
+2025-01-09 02:37:53 - Clearing scheduled events
+2025-01-09 02:37:53 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:37:53 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:37:53 - [CRON] Removing init actions
+2025-01-09 02:37:53 - [CRON] Removing admin_init actions
+2025-01-09 02:37:53 - [CRON] Checking for scheduled events
+2025-01-09 02:37:53 - [CRON] Next scheduled timestamp: 2025-01-10 10:27:11
+2025-01-09 02:37:53 - [CRON] Unscheduling event at timestamp
+2025-01-09 02:37:53 - [CRON] Clearing scheduled hook
+2025-01-09 02:37:53 - [CRON] Resetting singleton instance
+2025-01-09 02:37:53 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:37:53 - Removing AJAX handlers
+2025-01-09 02:37:53 - Cleaning up options
+2025-01-09 02:37:53 - Deleting option: pod_printify_cache_updating
+2025-01-09 02:37:53 - Option deleted: no
+2025-01-09 02:37:53 - Deleting option: pod_printify_cache_progress
+2025-01-09 02:37:53 - Option deleted: yes
+2025-01-09 02:37:53 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 02:37:53 - Option deleted: no
+2025-01-09 02:37:53 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 02:37:53 - Option deleted: no
+2025-01-09 02:37:53 - Deleting option: pod_printify_last_cache_update
+2025-01-09 02:37:53 - Option deleted: no
+2025-01-09 02:37:53 - Deleting option: pod_printify_products_cache
+2025-01-09 02:37:53 - Option deleted: no
+2025-01-09 02:37:53 - Deleting option: pod_printify_products_cache_time
+2025-01-09 02:37:53 - Option deleted: no
+2025-01-09 02:37:53 - Removing transients
+2025-01-09 02:37:53 - Final cleanup of cron hooks
+2025-01-09 02:37:53 - Deactivation completed successfully
+2025-01-09 02:38:01 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:38:01 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:38:01 - [CRON] Removing init actions
+2025-01-09 02:38:01 - [CRON] Removing admin_init actions
+2025-01-09 02:38:01 - [CRON] Checking for scheduled events
+2025-01-09 02:38:01 - [CRON] Next scheduled timestamp: none
+2025-01-09 02:38:01 - [CRON] Clearing scheduled hook
+2025-01-09 02:38:01 - [CRON] Resetting singleton instance
+2025-01-09 02:38:01 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:39:17 - Starting deactivation process
+2025-01-09 02:39:17 - Creating Printify Platform instance
+2025-01-09 02:39:17 - Checking if cache is updating
+2025-01-09 02:39:17 - Cache is updating: no
+2025-01-09 02:39:17 - Attempting to cancel cache update
+2025-01-09 02:39:17 - Cache update cancelled: yes
+2025-01-09 02:39:17 - Clearing scheduled events
+2025-01-09 02:39:17 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:39:17 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:39:17 - [CRON] Removing init actions
+2025-01-09 02:39:17 - [CRON] Removing admin_init actions
+2025-01-09 02:39:17 - [CRON] Checking for scheduled events
+2025-01-09 02:39:17 - [CRON] Next scheduled timestamp: 2025-01-10 11:36:03
+2025-01-09 02:39:17 - [CRON] Unscheduling event at timestamp
+2025-01-09 02:39:17 - [CRON] Clearing scheduled hook
+2025-01-09 02:39:17 - [CRON] Resetting singleton instance
+2025-01-09 02:39:17 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:39:17 - Removing AJAX handlers
+2025-01-09 02:39:17 - Cleaning up options
+2025-01-09 02:39:17 - Deleting option: pod_printify_cache_updating
+2025-01-09 02:39:17 - Option deleted: no
+2025-01-09 02:39:17 - Deleting option: pod_printify_cache_progress
+2025-01-09 02:39:17 - Option deleted: yes
+2025-01-09 02:39:17 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 02:39:17 - Option deleted: no
+2025-01-09 02:39:17 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 02:39:17 - Option deleted: no
+2025-01-09 02:39:17 - Deleting option: pod_printify_last_cache_update
+2025-01-09 02:39:17 - Option deleted: no
+2025-01-09 02:39:17 - Deleting option: pod_printify_products_cache
+2025-01-09 02:39:17 - Option deleted: no
+2025-01-09 02:39:17 - Deleting option: pod_printify_products_cache_time
+2025-01-09 02:39:17 - Option deleted: no
+2025-01-09 02:39:17 - Removing transients
+2025-01-09 02:39:17 - Final cleanup of cron hooks
+2025-01-09 02:39:17 - Deactivation completed successfully
+2025-01-09 02:39:24 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:39:24 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:39:24 - [CRON] Removing init actions
+2025-01-09 02:39:24 - [CRON] Removing admin_init actions
+2025-01-09 02:39:24 - [CRON] Checking for scheduled events
+2025-01-09 02:39:24 - [CRON] Next scheduled timestamp: none
+2025-01-09 02:39:24 - [CRON] Clearing scheduled hook
+2025-01-09 02:39:24 - [CRON] Resetting singleton instance
+2025-01-09 02:39:24 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:44:00 - Starting deactivation process
+2025-01-09 02:44:00 - Creating Printify Platform instance
+2025-01-09 02:44:00 - Checking if cache is updating
+2025-01-09 02:44:00 - Cache is updating: no
+2025-01-09 02:44:00 - Attempting to cancel cache update
+2025-01-09 02:44:00 - Cache update cancelled: yes
+2025-01-09 02:44:00 - Clearing scheduled events
+2025-01-09 02:44:00 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:44:00 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:44:00 - [CRON] Removing init actions
+2025-01-09 02:44:00 - [CRON] Removing admin_init actions
+2025-01-09 02:44:00 - [CRON] Checking for scheduled events
+2025-01-09 02:44:00 - [CRON] Next scheduled timestamp: 2025-01-10 11:26:44
+2025-01-09 02:44:00 - [CRON] Unscheduling event at timestamp
+2025-01-09 02:44:00 - [CRON] Clearing scheduled hook
+2025-01-09 02:44:00 - [CRON] Resetting singleton instance
+2025-01-09 02:44:00 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:44:00 - Removing AJAX handlers
+2025-01-09 02:44:00 - Cleaning up options
+2025-01-09 02:44:00 - Deleting option: pod_printify_cache_updating
+2025-01-09 02:44:00 - Option deleted: no
+2025-01-09 02:44:00 - Deleting option: pod_printify_cache_progress
+2025-01-09 02:44:00 - Option deleted: yes
+2025-01-09 02:44:00 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 02:44:00 - Option deleted: no
+2025-01-09 02:44:00 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 02:44:00 - Option deleted: no
+2025-01-09 02:44:00 - Deleting option: pod_printify_last_cache_update
+2025-01-09 02:44:00 - Option deleted: no
+2025-01-09 02:44:00 - Deleting option: pod_printify_products_cache
+2025-01-09 02:44:00 - Option deleted: no
+2025-01-09 02:44:00 - Deleting option: pod_printify_products_cache_time
+2025-01-09 02:44:00 - Option deleted: no
+2025-01-09 02:44:00 - Removing transients
+2025-01-09 02:44:00 - Final cleanup of cron hooks
+2025-01-09 02:44:00 - Deactivation completed successfully
+2025-01-09 02:44:10 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:44:10 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:44:10 - [CRON] Removing init actions
+2025-01-09 02:44:10 - [CRON] Removing admin_init actions
+2025-01-09 02:44:10 - [CRON] Checking for scheduled events
+2025-01-09 02:44:10 - [CRON] Next scheduled timestamp: none
+2025-01-09 02:44:10 - [CRON] Clearing scheduled hook
+2025-01-09 02:44:10 - [CRON] Resetting singleton instance
+2025-01-09 02:44:10 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:46:30 - Starting deactivation process
+2025-01-09 02:46:30 - Creating Printify Platform instance
+2025-01-09 02:46:30 - Checking if cache is updating
+2025-01-09 02:46:30 - Cache is updating: no
+2025-01-09 02:46:30 - Attempting to cancel cache update
+2025-01-09 02:46:30 - Cache update cancelled: yes
+2025-01-09 02:46:30 - Clearing scheduled events
+2025-01-09 02:46:30 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:46:30 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:46:30 - [CRON] Removing init actions
+2025-01-09 02:46:30 - [CRON] Removing admin_init actions
+2025-01-09 02:46:30 - [CRON] Checking for scheduled events
+2025-01-09 02:46:30 - [CRON] Next scheduled timestamp: 2025-01-10 12:28:51
+2025-01-09 02:46:30 - [CRON] Unscheduling event at timestamp
+2025-01-09 02:46:30 - [CRON] Clearing scheduled hook
+2025-01-09 02:46:30 - [CRON] Resetting singleton instance
+2025-01-09 02:46:30 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:46:30 - Removing AJAX handlers
+2025-01-09 02:46:30 - Cleaning up options
+2025-01-09 02:46:30 - Deleting option: pod_printify_cache_updating
+2025-01-09 02:46:30 - Option deleted: no
+2025-01-09 02:46:30 - Deleting option: pod_printify_cache_progress
+2025-01-09 02:46:30 - Option deleted: yes
+2025-01-09 02:46:30 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 02:46:30 - Option deleted: no
+2025-01-09 02:46:30 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 02:46:30 - Option deleted: no
+2025-01-09 02:46:30 - Deleting option: pod_printify_last_cache_update
+2025-01-09 02:46:30 - Option deleted: no
+2025-01-09 02:46:30 - Deleting option: pod_printify_products_cache
+2025-01-09 02:46:30 - Option deleted: no
+2025-01-09 02:46:30 - Deleting option: pod_printify_products_cache_time
+2025-01-09 02:46:30 - Option deleted: no
+2025-01-09 02:46:30 - Removing transients
+2025-01-09 02:46:30 - Final cleanup of cron hooks
+2025-01-09 02:46:30 - Deactivation completed successfully
+2025-01-09 02:46:39 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:46:39 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:46:39 - [CRON] Removing init actions
+2025-01-09 02:46:39 - [CRON] Removing admin_init actions
+2025-01-09 02:46:39 - [CRON] Checking for scheduled events
+2025-01-09 02:46:39 - [CRON] Next scheduled timestamp: none
+2025-01-09 02:46:39 - [CRON] Clearing scheduled hook
+2025-01-09 02:46:39 - [CRON] Resetting singleton instance
+2025-01-09 02:46:39 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:49:37 - Starting deactivation process
+2025-01-09 02:49:37 - Creating Printify Platform instance
+2025-01-09 02:49:37 - Checking if cache is updating
+2025-01-09 02:49:37 - Cache is updating: no
+2025-01-09 02:49:37 - Attempting to cancel cache update
+2025-01-09 02:49:37 - Cache update cancelled: yes
+2025-01-09 02:49:37 - Clearing scheduled events
+2025-01-09 02:49:37 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:49:37 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:49:37 - [CRON] Removing init actions
+2025-01-09 02:49:37 - [CRON] Removing admin_init actions
+2025-01-09 02:49:37 - [CRON] Checking for scheduled events
+2025-01-09 02:49:37 - [CRON] Next scheduled timestamp: 2025-01-10 13:32:13
+2025-01-09 02:49:37 - [CRON] Unscheduling event at timestamp
+2025-01-09 02:49:37 - [CRON] Clearing scheduled hook
+2025-01-09 02:49:37 - [CRON] Resetting singleton instance
+2025-01-09 02:49:37 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:49:37 - Removing AJAX handlers
+2025-01-09 02:49:37 - Cleaning up options
+2025-01-09 02:49:37 - Deleting option: pod_printify_cache_updating
+2025-01-09 02:49:37 - Option deleted: no
+2025-01-09 02:49:37 - Deleting option: pod_printify_cache_progress
+2025-01-09 02:49:37 - Option deleted: yes
+2025-01-09 02:49:37 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 02:49:37 - Option deleted: no
+2025-01-09 02:49:37 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 02:49:37 - Option deleted: no
+2025-01-09 02:49:37 - Deleting option: pod_printify_last_cache_update
+2025-01-09 02:49:37 - Option deleted: no
+2025-01-09 02:49:37 - Deleting option: pod_printify_products_cache
+2025-01-09 02:49:37 - Option deleted: no
+2025-01-09 02:49:37 - Deleting option: pod_printify_products_cache_time
+2025-01-09 02:49:37 - Option deleted: no
+2025-01-09 02:49:37 - Removing transients
+2025-01-09 02:49:37 - Final cleanup of cron hooks
+2025-01-09 02:49:37 - Deactivation completed successfully
+2025-01-09 02:49:46 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:49:46 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:49:46 - [CRON] Removing init actions
+2025-01-09 02:49:46 - [CRON] Removing admin_init actions
+2025-01-09 02:49:46 - [CRON] Checking for scheduled events
+2025-01-09 02:49:46 - [CRON] Next scheduled timestamp: none
+2025-01-09 02:49:46 - [CRON] Clearing scheduled hook
+2025-01-09 02:49:46 - [CRON] Resetting singleton instance
+2025-01-09 02:49:46 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:58:56 - Starting deactivation process
+2025-01-09 02:58:56 - Creating Printify Platform instance
+2025-01-09 02:58:56 - Checking if cache is updating
+2025-01-09 02:58:56 - Cache is updating: no
+2025-01-09 02:58:56 - Attempting to cancel cache update
+2025-01-09 02:58:56 - Cache update cancelled: yes
+2025-01-09 02:58:56 - Clearing scheduled events
+2025-01-09 02:58:56 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:58:56 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:58:56 - [CRON] Removing init actions
+2025-01-09 02:58:56 - [CRON] Removing admin_init actions
+2025-01-09 02:58:56 - [CRON] Checking for scheduled events
+2025-01-09 02:58:56 - [CRON] Next scheduled timestamp: 2025-01-10 07:34:05
+2025-01-09 02:58:56 - [CRON] Unscheduling event at timestamp
+2025-01-09 02:58:56 - [CRON] Clearing scheduled hook
+2025-01-09 02:58:56 - [CRON] Resetting singleton instance
+2025-01-09 02:58:56 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 02:58:56 - Removing AJAX handlers
+2025-01-09 02:58:56 - Cleaning up options
+2025-01-09 02:58:56 - Deleting option: pod_printify_cache_updating
+2025-01-09 02:58:56 - Option deleted: no
+2025-01-09 02:58:56 - Deleting option: pod_printify_cache_progress
+2025-01-09 02:58:56 - Option deleted: yes
+2025-01-09 02:58:56 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 02:58:56 - Option deleted: no
+2025-01-09 02:58:56 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 02:58:56 - Option deleted: no
+2025-01-09 02:58:56 - Deleting option: pod_printify_last_cache_update
+2025-01-09 02:58:56 - Option deleted: no
+2025-01-09 02:58:56 - Deleting option: pod_printify_products_cache
+2025-01-09 02:58:56 - Option deleted: no
+2025-01-09 02:58:56 - Deleting option: pod_printify_products_cache_time
+2025-01-09 02:58:56 - Option deleted: no
+2025-01-09 02:58:56 - Removing transients
+2025-01-09 02:58:56 - Final cleanup of cron hooks
+2025-01-09 02:58:56 - Deactivation completed successfully
+2025-01-09 02:59:20 - [CRON] Starting clear_scheduled_events
+2025-01-09 02:59:20 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 02:59:20 - [CRON] Removing init actions
+2025-01-09 02:59:20 - [CRON] Removing admin_init actions
+2025-01-09 02:59:20 - [CRON] Checking for scheduled events
+2025-01-09 02:59:20 - [CRON] Next scheduled timestamp: none
+2025-01-09 02:59:20 - [CRON] Clearing scheduled hook
+2025-01-09 02:59:20 - [CRON] Resetting singleton instance
+2025-01-09 02:59:20 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:08:51 - Starting deactivation process
+2025-01-09 03:08:51 - Creating Printify Platform instance
+2025-01-09 03:08:51 - Checking if cache is updating
+2025-01-09 03:08:51 - Cache is updating: no
+2025-01-09 03:08:51 - Attempting to cancel cache update
+2025-01-09 03:08:51 - Cache update cancelled: yes
+2025-01-09 03:08:51 - Clearing scheduled events
+2025-01-09 03:08:51 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:08:51 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:08:51 - [CRON] Removing init actions
+2025-01-09 03:08:51 - [CRON] Removing admin_init actions
+2025-01-09 03:08:51 - [CRON] Checking for scheduled events
+2025-01-09 03:08:51 - [CRON] Next scheduled timestamp: 2025-01-10 22:33:56
+2025-01-09 03:08:51 - [CRON] Unscheduling event at timestamp
+2025-01-09 03:08:51 - [CRON] Clearing scheduled hook
+2025-01-09 03:08:51 - [CRON] Resetting singleton instance
+2025-01-09 03:08:51 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:08:51 - Removing AJAX handlers
+2025-01-09 03:08:51 - Cleaning up options
+2025-01-09 03:08:51 - Deleting option: pod_printify_cache_updating
+2025-01-09 03:08:51 - Option deleted: no
+2025-01-09 03:08:51 - Deleting option: pod_printify_cache_progress
+2025-01-09 03:08:51 - Option deleted: yes
+2025-01-09 03:08:51 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 03:08:51 - Option deleted: no
+2025-01-09 03:08:51 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 03:08:51 - Option deleted: no
+2025-01-09 03:08:51 - Deleting option: pod_printify_last_cache_update
+2025-01-09 03:08:51 - Option deleted: no
+2025-01-09 03:08:51 - Deleting option: pod_printify_products_cache
+2025-01-09 03:08:51 - Option deleted: no
+2025-01-09 03:08:51 - Deleting option: pod_printify_products_cache_time
+2025-01-09 03:08:51 - Option deleted: no
+2025-01-09 03:08:51 - Removing transients
+2025-01-09 03:08:51 - Final cleanup of cron hooks
+2025-01-09 03:08:51 - Deactivation completed successfully
+2025-01-09 03:09:03 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:09:03 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:09:03 - [CRON] Removing init actions
+2025-01-09 03:09:03 - [CRON] Removing admin_init actions
+2025-01-09 03:09:03 - [CRON] Checking for scheduled events
+2025-01-09 03:09:03 - [CRON] Next scheduled timestamp: none
+2025-01-09 03:09:03 - [CRON] Clearing scheduled hook
+2025-01-09 03:09:03 - [CRON] Resetting singleton instance
+2025-01-09 03:09:03 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:11:45 - Starting deactivation process
+2025-01-09 03:11:45 - Creating Printify Platform instance
+2025-01-09 03:11:45 - Checking if cache is updating
+2025-01-09 03:11:45 - Cache is updating: no
+2025-01-09 03:11:45 - Attempting to cancel cache update
+2025-01-09 03:11:45 - Cache update cancelled: yes
+2025-01-09 03:11:45 - Clearing scheduled events
+2025-01-09 03:11:45 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:11:45 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:11:45 - [CRON] Removing init actions
+2025-01-09 03:11:45 - [CRON] Removing admin_init actions
+2025-01-09 03:11:45 - [CRON] Checking for scheduled events
+2025-01-09 03:11:45 - [CRON] Next scheduled timestamp: 2025-01-10 18:57:12
+2025-01-09 03:11:45 - [CRON] Unscheduling event at timestamp
+2025-01-09 03:11:45 - [CRON] Clearing scheduled hook
+2025-01-09 03:11:45 - [CRON] Resetting singleton instance
+2025-01-09 03:11:45 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:11:45 - Removing AJAX handlers
+2025-01-09 03:11:45 - Cleaning up options
+2025-01-09 03:11:45 - Deleting option: pod_printify_cache_updating
+2025-01-09 03:11:45 - Option deleted: no
+2025-01-09 03:11:45 - Deleting option: pod_printify_cache_progress
+2025-01-09 03:11:45 - Option deleted: yes
+2025-01-09 03:11:45 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 03:11:45 - Option deleted: no
+2025-01-09 03:11:45 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 03:11:45 - Option deleted: no
+2025-01-09 03:11:45 - Deleting option: pod_printify_last_cache_update
+2025-01-09 03:11:45 - Option deleted: no
+2025-01-09 03:11:45 - Deleting option: pod_printify_products_cache
+2025-01-09 03:11:45 - Option deleted: no
+2025-01-09 03:11:45 - Deleting option: pod_printify_products_cache_time
+2025-01-09 03:11:45 - Option deleted: no
+2025-01-09 03:11:45 - Removing transients
+2025-01-09 03:11:45 - Final cleanup of cron hooks
+2025-01-09 03:11:45 - Deactivation completed successfully
+2025-01-09 03:11:58 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:11:58 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:11:58 - [CRON] Removing init actions
+2025-01-09 03:11:58 - [CRON] Removing admin_init actions
+2025-01-09 03:11:58 - [CRON] Checking for scheduled events
+2025-01-09 03:11:58 - [CRON] Next scheduled timestamp: none
+2025-01-09 03:11:58 - [CRON] Clearing scheduled hook
+2025-01-09 03:11:58 - [CRON] Resetting singleton instance
+2025-01-09 03:11:58 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:16:57 - Starting deactivation process
+2025-01-09 03:16:57 - Creating Printify Platform instance
+2025-01-09 03:16:57 - Checking if cache is updating
+2025-01-09 03:16:57 - Cache is updating: no
+2025-01-09 03:16:57 - Attempting to cancel cache update
+2025-01-09 03:16:57 - Cache update cancelled: yes
+2025-01-09 03:16:57 - Clearing scheduled events
+2025-01-09 03:16:57 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:16:57 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:16:57 - [CRON] Removing init actions
+2025-01-09 03:16:57 - [CRON] Removing admin_init actions
+2025-01-09 03:16:57 - [CRON] Checking for scheduled events
+2025-01-09 03:16:57 - [CRON] Next scheduled timestamp: 2025-01-10 18:58:47
+2025-01-09 03:16:57 - [CRON] Unscheduling event at timestamp
+2025-01-09 03:16:57 - [CRON] Clearing scheduled hook
+2025-01-09 03:16:57 - [CRON] Resetting singleton instance
+2025-01-09 03:16:57 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:16:57 - Removing AJAX handlers
+2025-01-09 03:16:57 - Cleaning up options
+2025-01-09 03:16:57 - Deleting option: pod_printify_cache_updating
+2025-01-09 03:16:57 - Option deleted: no
+2025-01-09 03:16:57 - Deleting option: pod_printify_cache_progress
+2025-01-09 03:16:57 - Option deleted: yes
+2025-01-09 03:16:57 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 03:16:57 - Option deleted: no
+2025-01-09 03:16:57 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 03:16:57 - Option deleted: no
+2025-01-09 03:16:57 - Deleting option: pod_printify_last_cache_update
+2025-01-09 03:16:57 - Option deleted: no
+2025-01-09 03:16:57 - Deleting option: pod_printify_products_cache
+2025-01-09 03:16:57 - Option deleted: no
+2025-01-09 03:16:57 - Deleting option: pod_printify_products_cache_time
+2025-01-09 03:16:57 - Option deleted: no
+2025-01-09 03:16:57 - Removing transients
+2025-01-09 03:16:57 - Final cleanup of cron hooks
+2025-01-09 03:16:57 - Deactivation completed successfully
+2025-01-09 03:17:16 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:17:16 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:17:16 - [CRON] Removing init actions
+2025-01-09 03:17:16 - [CRON] Removing admin_init actions
+2025-01-09 03:17:16 - [CRON] Checking for scheduled events
+2025-01-09 03:17:16 - [CRON] Next scheduled timestamp: none
+2025-01-09 03:17:16 - [CRON] Clearing scheduled hook
+2025-01-09 03:17:16 - [CRON] Resetting singleton instance
+2025-01-09 03:17:16 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:22:53 - Starting deactivation process
+2025-01-09 03:22:53 - Creating Printify Platform instance
+2025-01-09 03:22:53 - Checking if cache is updating
+2025-01-09 03:22:53 - Cache is updating: no
+2025-01-09 03:22:53 - Attempting to cancel cache update
+2025-01-09 03:22:53 - Cache update cancelled: yes
+2025-01-09 03:22:53 - Clearing scheduled events
+2025-01-09 03:22:53 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:22:53 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:22:53 - [CRON] Removing init actions
+2025-01-09 03:22:53 - [CRON] Removing admin_init actions
+2025-01-09 03:22:53 - [CRON] Checking for scheduled events
+2025-01-09 03:22:53 - [CRON] Next scheduled timestamp: 2025-01-10 05:15:39
+2025-01-09 03:22:53 - [CRON] Unscheduling event at timestamp
+2025-01-09 03:22:53 - [CRON] Clearing scheduled hook
+2025-01-09 03:22:53 - [CRON] Resetting singleton instance
+2025-01-09 03:22:53 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:22:53 - Removing AJAX handlers
+2025-01-09 03:22:53 - Cleaning up options
+2025-01-09 03:22:53 - Deleting option: pod_printify_cache_updating
+2025-01-09 03:22:53 - Option deleted: no
+2025-01-09 03:22:53 - Deleting option: pod_printify_cache_progress
+2025-01-09 03:22:53 - Option deleted: yes
+2025-01-09 03:22:53 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 03:22:53 - Option deleted: no
+2025-01-09 03:22:53 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 03:22:53 - Option deleted: no
+2025-01-09 03:22:53 - Deleting option: pod_printify_last_cache_update
+2025-01-09 03:22:53 - Option deleted: no
+2025-01-09 03:22:53 - Deleting option: pod_printify_products_cache
+2025-01-09 03:22:53 - Option deleted: no
+2025-01-09 03:22:53 - Deleting option: pod_printify_products_cache_time
+2025-01-09 03:22:53 - Option deleted: no
+2025-01-09 03:22:53 - Removing transients
+2025-01-09 03:22:53 - Final cleanup of cron hooks
+2025-01-09 03:22:53 - Deactivation completed successfully
+2025-01-09 03:23:01 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:23:01 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:23:01 - [CRON] Removing init actions
+2025-01-09 03:23:01 - [CRON] Removing admin_init actions
+2025-01-09 03:23:01 - [CRON] Checking for scheduled events
+2025-01-09 03:23:01 - [CRON] Next scheduled timestamp: none
+2025-01-09 03:23:01 - [CRON] Clearing scheduled hook
+2025-01-09 03:23:01 - [CRON] Resetting singleton instance
+2025-01-09 03:23:01 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:25:37 - Starting deactivation process
+2025-01-09 03:25:37 - Creating Printify Platform instance
+2025-01-09 03:25:37 - Checking if cache is updating
+2025-01-09 03:25:37 - Cache is updating: no
+2025-01-09 03:25:37 - Attempting to cancel cache update
+2025-01-09 03:25:37 - Cache update cancelled: yes
+2025-01-09 03:25:37 - Clearing scheduled events
+2025-01-09 03:25:37 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:25:37 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:25:37 - [CRON] Removing init actions
+2025-01-09 03:25:37 - [CRON] Removing admin_init actions
+2025-01-09 03:25:37 - [CRON] Checking for scheduled events
+2025-01-09 03:25:37 - [CRON] Next scheduled timestamp: 2025-01-10 14:49:47
+2025-01-09 03:25:37 - [CRON] Unscheduling event at timestamp
+2025-01-09 03:25:37 - [CRON] Clearing scheduled hook
+2025-01-09 03:25:37 - [CRON] Resetting singleton instance
+2025-01-09 03:25:37 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:25:37 - Removing AJAX handlers
+2025-01-09 03:25:37 - Cleaning up options
+2025-01-09 03:25:37 - Deleting option: pod_printify_cache_updating
+2025-01-09 03:25:37 - Option deleted: no
+2025-01-09 03:25:37 - Deleting option: pod_printify_cache_progress
+2025-01-09 03:25:37 - Option deleted: yes
+2025-01-09 03:25:37 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 03:25:37 - Option deleted: no
+2025-01-09 03:25:37 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 03:25:37 - Option deleted: no
+2025-01-09 03:25:37 - Deleting option: pod_printify_last_cache_update
+2025-01-09 03:25:37 - Option deleted: no
+2025-01-09 03:25:37 - Deleting option: pod_printify_products_cache
+2025-01-09 03:25:37 - Option deleted: no
+2025-01-09 03:25:37 - Deleting option: pod_printify_products_cache_time
+2025-01-09 03:25:37 - Option deleted: no
+2025-01-09 03:25:37 - Removing transients
+2025-01-09 03:25:37 - Final cleanup of cron hooks
+2025-01-09 03:25:37 - Deactivation completed successfully
+2025-01-09 03:25:44 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:25:44 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:25:44 - [CRON] Removing init actions
+2025-01-09 03:25:44 - [CRON] Removing admin_init actions
+2025-01-09 03:25:44 - [CRON] Checking for scheduled events
+2025-01-09 03:25:44 - [CRON] Next scheduled timestamp: none
+2025-01-09 03:25:44 - [CRON] Clearing scheduled hook
+2025-01-09 03:25:44 - [CRON] Resetting singleton instance
+2025-01-09 03:25:44 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:29:06 - Starting deactivation process
+2025-01-09 03:29:06 - Creating Printify Platform instance
+2025-01-09 03:29:06 - Checking if cache is updating
+2025-01-09 03:29:06 - Cache is updating: no
+2025-01-09 03:29:06 - Attempting to cancel cache update
+2025-01-09 03:29:06 - Cache update cancelled: yes
+2025-01-09 03:29:06 - Clearing scheduled events
+2025-01-09 03:29:06 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:29:06 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:29:06 - [CRON] Removing init actions
+2025-01-09 03:29:06 - [CRON] Removing admin_init actions
+2025-01-09 03:29:06 - [CRON] Checking for scheduled events
+2025-01-09 03:29:06 - [CRON] Next scheduled timestamp: 2025-01-10 23:45:58
+2025-01-09 03:29:06 - [CRON] Unscheduling event at timestamp
+2025-01-09 03:29:06 - [CRON] Clearing scheduled hook
+2025-01-09 03:29:06 - [CRON] Resetting singleton instance
+2025-01-09 03:29:06 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:29:06 - Removing AJAX handlers
+2025-01-09 03:29:06 - Cleaning up options
+2025-01-09 03:29:06 - Deleting option: pod_printify_cache_updating
+2025-01-09 03:29:06 - Option deleted: no
+2025-01-09 03:29:06 - Deleting option: pod_printify_cache_progress
+2025-01-09 03:29:06 - Option deleted: yes
+2025-01-09 03:29:06 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 03:29:06 - Option deleted: no
+2025-01-09 03:29:06 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 03:29:06 - Option deleted: no
+2025-01-09 03:29:06 - Deleting option: pod_printify_last_cache_update
+2025-01-09 03:29:06 - Option deleted: no
+2025-01-09 03:29:06 - Deleting option: pod_printify_products_cache
+2025-01-09 03:29:06 - Option deleted: no
+2025-01-09 03:29:06 - Deleting option: pod_printify_products_cache_time
+2025-01-09 03:29:06 - Option deleted: no
+2025-01-09 03:29:06 - Removing transients
+2025-01-09 03:29:06 - Final cleanup of cron hooks
+2025-01-09 03:29:06 - Deactivation completed successfully
+2025-01-09 03:29:14 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:29:14 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:29:14 - [CRON] Removing init actions
+2025-01-09 03:29:14 - [CRON] Removing admin_init actions
+2025-01-09 03:29:14 - [CRON] Checking for scheduled events
+2025-01-09 03:29:14 - [CRON] Next scheduled timestamp: none
+2025-01-09 03:29:14 - [CRON] Clearing scheduled hook
+2025-01-09 03:29:14 - [CRON] Resetting singleton instance
+2025-01-09 03:29:14 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:31:37 - Starting deactivation process
+2025-01-09 03:31:37 - Creating Printify Platform instance
+2025-01-09 03:31:37 - Checking if cache is updating
+2025-01-09 03:31:37 - Cache is updating: no
+2025-01-09 03:31:37 - Attempting to cancel cache update
+2025-01-09 03:31:37 - Cache update cancelled: yes
+2025-01-09 03:31:37 - Clearing scheduled events
+2025-01-09 03:31:37 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:31:37 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:31:37 - [CRON] Removing init actions
+2025-01-09 03:31:37 - [CRON] Removing admin_init actions
+2025-01-09 03:31:37 - [CRON] Checking for scheduled events
+2025-01-09 03:31:37 - [CRON] Next scheduled timestamp: 2025-01-10 22:02:44
+2025-01-09 03:31:37 - [CRON] Unscheduling event at timestamp
+2025-01-09 03:31:37 - [CRON] Clearing scheduled hook
+2025-01-09 03:31:37 - [CRON] Resetting singleton instance
+2025-01-09 03:31:37 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:31:37 - Removing AJAX handlers
+2025-01-09 03:31:37 - Cleaning up options
+2025-01-09 03:31:37 - Deleting option: pod_printify_cache_updating
+2025-01-09 03:31:37 - Option deleted: no
+2025-01-09 03:31:37 - Deleting option: pod_printify_cache_progress
+2025-01-09 03:31:37 - Option deleted: yes
+2025-01-09 03:31:37 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 03:31:37 - Option deleted: no
+2025-01-09 03:31:37 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 03:31:37 - Option deleted: no
+2025-01-09 03:31:37 - Deleting option: pod_printify_last_cache_update
+2025-01-09 03:31:37 - Option deleted: no
+2025-01-09 03:31:37 - Deleting option: pod_printify_products_cache
+2025-01-09 03:31:37 - Option deleted: no
+2025-01-09 03:31:37 - Deleting option: pod_printify_products_cache_time
+2025-01-09 03:31:37 - Option deleted: no
+2025-01-09 03:31:37 - Removing transients
+2025-01-09 03:31:37 - Final cleanup of cron hooks
+2025-01-09 03:31:37 - Deactivation completed successfully
+2025-01-09 03:31:44 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:31:44 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:31:44 - [CRON] Removing init actions
+2025-01-09 03:31:44 - [CRON] Removing admin_init actions
+2025-01-09 03:31:44 - [CRON] Checking for scheduled events
+2025-01-09 03:31:44 - [CRON] Next scheduled timestamp: none
+2025-01-09 03:31:44 - [CRON] Clearing scheduled hook
+2025-01-09 03:31:44 - [CRON] Resetting singleton instance
+2025-01-09 03:31:44 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:33:48 - Starting deactivation process
+2025-01-09 03:33:48 - Creating Printify Platform instance
+2025-01-09 03:33:48 - Checking if cache is updating
+2025-01-09 03:33:48 - Cache is updating: no
+2025-01-09 03:33:48 - Attempting to cancel cache update
+2025-01-09 03:33:48 - Cache update cancelled: yes
+2025-01-09 03:33:48 - Clearing scheduled events
+2025-01-09 03:33:48 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:33:48 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:33:48 - [CRON] Removing init actions
+2025-01-09 03:33:48 - [CRON] Removing admin_init actions
+2025-01-09 03:33:48 - [CRON] Checking for scheduled events
+2025-01-09 03:33:48 - [CRON] Next scheduled timestamp: 2025-01-10 07:07:28
+2025-01-09 03:33:48 - [CRON] Unscheduling event at timestamp
+2025-01-09 03:33:48 - [CRON] Clearing scheduled hook
+2025-01-09 03:33:48 - [CRON] Resetting singleton instance
+2025-01-09 03:33:48 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:33:48 - Removing AJAX handlers
+2025-01-09 03:33:48 - Cleaning up options
+2025-01-09 03:33:48 - Deleting option: pod_printify_cache_updating
+2025-01-09 03:33:48 - Option deleted: no
+2025-01-09 03:33:48 - Deleting option: pod_printify_cache_progress
+2025-01-09 03:33:48 - Option deleted: yes
+2025-01-09 03:33:48 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 03:33:48 - Option deleted: no
+2025-01-09 03:33:48 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 03:33:48 - Option deleted: no
+2025-01-09 03:33:48 - Deleting option: pod_printify_last_cache_update
+2025-01-09 03:33:48 - Option deleted: no
+2025-01-09 03:33:48 - Deleting option: pod_printify_products_cache
+2025-01-09 03:33:48 - Option deleted: no
+2025-01-09 03:33:48 - Deleting option: pod_printify_products_cache_time
+2025-01-09 03:33:48 - Option deleted: no
+2025-01-09 03:33:48 - Removing transients
+2025-01-09 03:33:48 - Final cleanup of cron hooks
+2025-01-09 03:33:48 - Deactivation completed successfully
+2025-01-09 03:33:55 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:33:55 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:33:55 - [CRON] Removing init actions
+2025-01-09 03:33:55 - [CRON] Removing admin_init actions
+2025-01-09 03:33:55 - [CRON] Checking for scheduled events
+2025-01-09 03:33:55 - [CRON] Next scheduled timestamp: none
+2025-01-09 03:33:55 - [CRON] Clearing scheduled hook
+2025-01-09 03:33:55 - [CRON] Resetting singleton instance
+2025-01-09 03:33:55 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:35:13 - Starting deactivation process
+2025-01-09 03:35:13 - Creating Printify Platform instance
+2025-01-09 03:35:13 - Checking if cache is updating
+2025-01-09 03:35:13 - Cache is updating: no
+2025-01-09 03:35:13 - Attempting to cancel cache update
+2025-01-09 03:35:13 - Cache update cancelled: yes
+2025-01-09 03:35:13 - Clearing scheduled events
+2025-01-09 03:35:13 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:35:13 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:35:13 - [CRON] Removing init actions
+2025-01-09 03:35:13 - [CRON] Removing admin_init actions
+2025-01-09 03:35:13 - [CRON] Checking for scheduled events
+2025-01-09 03:35:13 - [CRON] Next scheduled timestamp: 2025-01-10 20:57:55
+2025-01-09 03:35:13 - [CRON] Unscheduling event at timestamp
+2025-01-09 03:35:13 - [CRON] Clearing scheduled hook
+2025-01-09 03:35:13 - [CRON] Resetting singleton instance
+2025-01-09 03:35:13 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:35:13 - Removing AJAX handlers
+2025-01-09 03:35:13 - Cleaning up options
+2025-01-09 03:35:13 - Deleting option: pod_printify_cache_updating
+2025-01-09 03:35:13 - Option deleted: no
+2025-01-09 03:35:13 - Deleting option: pod_printify_cache_progress
+2025-01-09 03:35:13 - Option deleted: yes
+2025-01-09 03:35:13 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 03:35:13 - Option deleted: no
+2025-01-09 03:35:13 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 03:35:13 - Option deleted: no
+2025-01-09 03:35:13 - Deleting option: pod_printify_last_cache_update
+2025-01-09 03:35:13 - Option deleted: no
+2025-01-09 03:35:13 - Deleting option: pod_printify_products_cache
+2025-01-09 03:35:13 - Option deleted: no
+2025-01-09 03:35:13 - Deleting option: pod_printify_products_cache_time
+2025-01-09 03:35:13 - Option deleted: no
+2025-01-09 03:35:13 - Removing transients
+2025-01-09 03:35:13 - Final cleanup of cron hooks
+2025-01-09 03:35:13 - Deactivation completed successfully
+2025-01-09 03:35:20 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:35:20 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:35:20 - [CRON] Removing init actions
+2025-01-09 03:35:20 - [CRON] Removing admin_init actions
+2025-01-09 03:35:20 - [CRON] Checking for scheduled events
+2025-01-09 03:35:20 - [CRON] Next scheduled timestamp: none
+2025-01-09 03:35:20 - [CRON] Clearing scheduled hook
+2025-01-09 03:35:20 - [CRON] Resetting singleton instance
+2025-01-09 03:35:20 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:38:29 - Starting deactivation process
+2025-01-09 03:38:29 - Creating Printify Platform instance
+2025-01-09 03:38:29 - Checking if cache is updating
+2025-01-09 03:38:29 - Cache is updating: no
+2025-01-09 03:38:29 - Attempting to cancel cache update
+2025-01-09 03:38:29 - Cache update cancelled: yes
+2025-01-09 03:38:29 - Clearing scheduled events
+2025-01-09 03:38:29 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:38:29 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:38:29 - [CRON] Removing init actions
+2025-01-09 03:38:29 - [CRON] Removing admin_init actions
+2025-01-09 03:38:29 - [CRON] Checking for scheduled events
+2025-01-09 03:38:29 - [CRON] Next scheduled timestamp: 2025-01-10 01:46:35
+2025-01-09 03:38:29 - [CRON] Unscheduling event at timestamp
+2025-01-09 03:38:29 - [CRON] Clearing scheduled hook
+2025-01-09 03:38:29 - [CRON] Resetting singleton instance
+2025-01-09 03:38:29 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:38:29 - Removing AJAX handlers
+2025-01-09 03:38:29 - Cleaning up options
+2025-01-09 03:38:29 - Deleting option: pod_printify_cache_updating
+2025-01-09 03:38:29 - Option deleted: no
+2025-01-09 03:38:29 - Deleting option: pod_printify_cache_progress
+2025-01-09 03:38:29 - Option deleted: yes
+2025-01-09 03:38:29 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 03:38:29 - Option deleted: no
+2025-01-09 03:38:29 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 03:38:29 - Option deleted: no
+2025-01-09 03:38:29 - Deleting option: pod_printify_last_cache_update
+2025-01-09 03:38:29 - Option deleted: no
+2025-01-09 03:38:29 - Deleting option: pod_printify_products_cache
+2025-01-09 03:38:29 - Option deleted: no
+2025-01-09 03:38:29 - Deleting option: pod_printify_products_cache_time
+2025-01-09 03:38:29 - Option deleted: no
+2025-01-09 03:38:29 - Removing transients
+2025-01-09 03:38:29 - Final cleanup of cron hooks
+2025-01-09 03:38:29 - Deactivation completed successfully
+2025-01-09 03:38:36 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:38:36 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:38:36 - [CRON] Removing init actions
+2025-01-09 03:38:36 - [CRON] Removing admin_init actions
+2025-01-09 03:38:36 - [CRON] Checking for scheduled events
+2025-01-09 03:38:36 - [CRON] Next scheduled timestamp: none
+2025-01-09 03:38:36 - [CRON] Clearing scheduled hook
+2025-01-09 03:38:36 - [CRON] Resetting singleton instance
+2025-01-09 03:38:36 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:44:26 - Starting deactivation process
+2025-01-09 03:44:26 - Creating Printify Platform instance
+2025-01-09 03:44:26 - Checking if cache is updating
+2025-01-09 03:44:26 - Cache is updating: no
+2025-01-09 03:44:26 - Attempting to cancel cache update
+2025-01-09 03:44:26 - Cache update cancelled: yes
+2025-01-09 03:44:26 - Clearing scheduled events
+2025-01-09 03:44:26 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:44:26 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:44:26 - [CRON] Removing init actions
+2025-01-09 03:44:26 - [CRON] Removing admin_init actions
+2025-01-09 03:44:26 - [CRON] Checking for scheduled events
+2025-01-09 03:44:26 - [CRON] Next scheduled timestamp: 2025-01-10 06:43:58
+2025-01-09 03:44:26 - [CRON] Unscheduling event at timestamp
+2025-01-09 03:44:26 - [CRON] Clearing scheduled hook
+2025-01-09 03:44:26 - [CRON] Resetting singleton instance
+2025-01-09 03:44:26 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:44:26 - Removing AJAX handlers
+2025-01-09 03:44:26 - Cleaning up options
+2025-01-09 03:44:26 - Deleting option: pod_printify_cache_updating
+2025-01-09 03:44:26 - Option deleted: no
+2025-01-09 03:44:26 - Deleting option: pod_printify_cache_progress
+2025-01-09 03:44:26 - Option deleted: yes
+2025-01-09 03:44:26 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 03:44:26 - Option deleted: no
+2025-01-09 03:44:26 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 03:44:26 - Option deleted: no
+2025-01-09 03:44:26 - Deleting option: pod_printify_last_cache_update
+2025-01-09 03:44:26 - Option deleted: no
+2025-01-09 03:44:26 - Deleting option: pod_printify_products_cache
+2025-01-09 03:44:26 - Option deleted: no
+2025-01-09 03:44:26 - Deleting option: pod_printify_products_cache_time
+2025-01-09 03:44:26 - Option deleted: no
+2025-01-09 03:44:26 - Removing transients
+2025-01-09 03:44:26 - Final cleanup of cron hooks
+2025-01-09 03:44:26 - Deactivation completed successfully
+2025-01-09 03:44:32 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:44:32 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:44:32 - [CRON] Removing init actions
+2025-01-09 03:44:32 - [CRON] Removing admin_init actions
+2025-01-09 03:44:32 - [CRON] Checking for scheduled events
+2025-01-09 03:44:32 - [CRON] Next scheduled timestamp: none
+2025-01-09 03:44:32 - [CRON] Clearing scheduled hook
+2025-01-09 03:44:32 - [CRON] Resetting singleton instance
+2025-01-09 03:44:32 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:46:06 - Starting deactivation process
+2025-01-09 03:46:06 - Creating Printify Platform instance
+2025-01-09 03:46:06 - Checking if cache is updating
+2025-01-09 03:46:06 - Cache is updating: no
+2025-01-09 03:46:06 - Attempting to cancel cache update
+2025-01-09 03:46:06 - Cache update cancelled: yes
+2025-01-09 03:46:06 - Clearing scheduled events
+2025-01-09 03:46:06 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:46:06 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:46:06 - [CRON] Removing init actions
+2025-01-09 03:46:06 - [CRON] Removing admin_init actions
+2025-01-09 03:46:06 - [CRON] Checking for scheduled events
+2025-01-09 03:46:06 - [CRON] Next scheduled timestamp: 2025-01-10 00:36:59
+2025-01-09 03:46:06 - [CRON] Unscheduling event at timestamp
+2025-01-09 03:46:06 - [CRON] Clearing scheduled hook
+2025-01-09 03:46:06 - [CRON] Resetting singleton instance
+2025-01-09 03:46:06 - [CRON] clear_scheduled_events completed successfully
+2025-01-09 03:46:06 - Removing AJAX handlers
+2025-01-09 03:46:06 - Cleaning up options
+2025-01-09 03:46:06 - Deleting option: pod_printify_cache_updating
+2025-01-09 03:46:06 - Option deleted: no
+2025-01-09 03:46:06 - Deleting option: pod_printify_cache_progress
+2025-01-09 03:46:06 - Option deleted: yes
+2025-01-09 03:46:06 - Deleting option: pod_printify_all_products_detailed
+2025-01-09 03:46:06 - Option deleted: no
+2025-01-09 03:46:06 - Deleting option: pod_printify_all_products_detailed_temp
+2025-01-09 03:46:06 - Option deleted: no
+2025-01-09 03:46:06 - Deleting option: pod_printify_last_cache_update
+2025-01-09 03:46:06 - Option deleted: no
+2025-01-09 03:46:06 - Deleting option: pod_printify_products_cache
+2025-01-09 03:46:06 - Option deleted: no
+2025-01-09 03:46:06 - Deleting option: pod_printify_products_cache_time
+2025-01-09 03:46:06 - Option deleted: no
+2025-01-09 03:46:06 - Removing transients
+2025-01-09 03:46:06 - Final cleanup of cron hooks
+2025-01-09 03:46:06 - Deactivation completed successfully
+2025-01-09 03:46:14 - [CRON] Starting clear_scheduled_events
+2025-01-09 03:46:14 - [CRON] Removing pod_printify_cache_products actions
+2025-01-09 03:46:14 - [CRON] Removing init actions
+2025-01-09 03:46:14 - [CRON] Removing admin_init actions
+2025-01-09 03:46:14 - [CRON] Checking for scheduled events
+2025-01-09 03:46:14 - [CRON] Next scheduled timestamp: none
+2025-01-09 03:46:14 - [CRON] Clearing scheduled hook
+2025-01-09 03:46:14 - [CRON] Resetting singleton instance
+2025-01-09 03:46:14 - [CRON] clear_scheduled_events completed successfully

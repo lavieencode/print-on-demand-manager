@@ -1,0 +1,3 @@
+php_value max_execution_time 30
+php_value max_input_time 30
+php_flag ignore_user_abort off

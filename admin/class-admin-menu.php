@@ -57,49 +57,71 @@ class POD_Admin_Menu {
     }
 
     /**
-     * Enqueue admin scripts and styles
+     * Register the stylesheets and JavaScript for the admin area.
      */
     public function enqueue_admin_scripts($hook) {
-        error_log('POD Manager: Hook = ' . $hook);
-        
-        // Only load on our plugin pages
-        if ($hook === 'toplevel_page_pod-manager' || // Main/Quick Add page
-            $hook === 'pod-manager_page_pod-manager-designer' || // Designer page
-            $hook === 'pod-manager_page_pod-manager-settings') { // Settings page
-            
-            error_log('POD Manager: Loading scripts for hook: ' . $hook);
-            
-            // Enqueue jQuery first
-            wp_enqueue_script('jquery');
-            
-            // Get the URLs using plugin_dir_url for full URL path
-            $css_url = POD_MANAGER_PLUGIN_URL . 'admin/css/admin.css';
-            $js_url = POD_MANAGER_PLUGIN_URL . 'admin/js/admin.js';
-            
-            error_log('POD Manager: CSS URL = ' . $css_url);
-            error_log('POD Manager: JS URL = ' . $js_url);
-            
-            // Enqueue our files with cache busting
-            wp_enqueue_style(
-                'pod-admin-style', 
-                $css_url, 
-                array(), 
-                POD_MANAGER_VERSION
-            );
-            
-            wp_enqueue_script(
-                'pod-admin-script', 
-                $js_url, 
-                array('jquery'), 
-                POD_MANAGER_VERSION, 
-                true
-            );
-            
-            // Add our script data
-            wp_localize_script('pod-admin-script', 'podManagerAdmin', array(
-                'ajaxurl' => admin_url('admin-ajax.php')
-            ));
+        // Check if we're on any of our plugin pages
+        if (strpos($hook, 'pod-manager') === false) {
+            error_log('POD Manager: Skipping script load for hook: ' . $hook);
+            return;
         }
+
+        error_log('POD Manager: Loading scripts for hook: ' . $hook);
+
+        // Get the plugin base URL and path
+        $plugin_dir = plugin_dir_path(dirname(__FILE__));
+        $plugin_url = plugin_dir_url(dirname(__FILE__));
+
+        error_log('POD Manager: Plugin directory: ' . $plugin_dir);
+        error_log('POD Manager: Plugin URL: ' . $plugin_url);
+
+        // Define file paths and URLs
+        $css_path = $plugin_dir . 'admin/css/admin.css';
+        $js_path = $plugin_dir . 'admin/js/admin.js';
+        $css_url = $plugin_url . 'admin/css/admin.css';
+        $js_url = $plugin_url . 'admin/js/admin.js';
+
+        error_log('POD Manager: CSS path exists: ' . (file_exists($css_path) ? 'yes' : 'no'));
+        error_log('POD Manager: JS path exists: ' . (file_exists($js_path) ? 'yes' : 'no'));
+        error_log('POD Manager: CSS URL: ' . $css_url);
+        error_log('POD Manager: JS URL: ' . $js_url);
+
+        // Enqueue styles
+        wp_enqueue_style(
+            'pod-admin-css',
+            $css_url,
+            array(),
+            defined('WP_DEBUG') && WP_DEBUG ? time() : POD_MANAGER_VERSION
+        );
+
+        // Enqueue scripts
+        wp_enqueue_script(
+            'pod-admin-js',
+            $js_url,
+            array('jquery'),
+            defined('WP_DEBUG') && WP_DEBUG ? time() : POD_MANAGER_VERSION,
+            true
+        );
+
+        // Add our script data
+        $nonces = array(
+            'refresh_cache' => wp_create_nonce('pod_ajax_nonce'),
+            'get_cache_status' => wp_create_nonce('pod_ajax_nonce'),
+            'cancel_cache' => wp_create_nonce('pod_ajax_nonce'),
+            'view_cache' => wp_create_nonce('pod_ajax_nonce'),
+            'debug_cache' => wp_create_nonce('pod_ajax_nonce'),
+            'verify_connection' => wp_create_nonce('pod_ajax_nonce')
+        );
+        
+        error_log('POD Manager: Generated nonces for actions: ' . implode(', ', array_keys($nonces)));
+        
+        wp_localize_script('pod-admin-js', 'podManagerAdmin', array(
+            'ajaxurl' => admin_url('admin-ajax.php'),
+            'nonces' => $nonces,
+            'debug' => WP_DEBUG
+        ));
+        
+        error_log('POD Manager: Admin scripts enqueued successfully');
     }
 
     /**

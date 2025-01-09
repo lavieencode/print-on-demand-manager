@@ -99,36 +99,145 @@
     max-width: 600px;
 }
 
+#pod-cache-progress {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
 .pod-progress {
-    margin-bottom: 16px;
+    margin-bottom: 15px;
 }
 
 .pod-progress-bar {
-    height: 8px;
     background: #f0f0f1;
-    border-radius: 4px;
+    height: 20px;
+    border-radius: 10px;
     overflow: hidden;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .pod-progress-fill {
-    height: 100%;
     background: #2271b1;
-    border-radius: 4px;
+    height: 100%;
+    width: 0;
     transition: width 0.3s ease;
 }
 
 .pod-progress-stats {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.pod-progress-phase {
     color: #646970;
     font-size: 13px;
 }
 
-.pod-progress-percentage {
+.pod-phase-label {
     font-weight: 600;
-    color: #2271b1;
+    margin-right: 8px;
+}
+
+.pod-phase-item {
+    font-style: italic;
+}
+
+.pod-cancel-cache {
+    display: block !important;
+    margin-top: 15px !important;
+}
+
+.pod-cancel-cache .dashicons {
+    margin-top: 3px;
+}
+
+/* Cache Controls */
+.pod-cache-controls {
+    margin-top: 20px;
+}
+
+.pod-refresh-cache .dashicons {
+    margin-top: 3px;
+}
+
+.updating-message .dashicons-update {
+    animation: pod-spin 2s infinite linear;
+}
+
+@keyframes pod-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Cache Data Display */
+.pod-cache-summary {
+    margin: 20px 0;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+}
+
+.pod-cache-section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.pod-cache-section:last-child {
+    margin-bottom: 15px;
+    border-bottom: none;
+}
+
+.pod-cache-section h3 {
+    margin: 0 0 15px 0;
+    padding: 0;
+    font-size: 14px;
+    color: #1d2327;
+}
+
+.pod-cache-section p {
+    margin: 5px 0;
+    color: #50575e;
+}
+
+.pod-sample-data {
+    margin-top: 15px;
+    padding: 10px;
+    background: #f8f9fa;
+    border: 1px solid #eee;
+    border-radius: 3px;
+}
+
+.pod-sample-data pre {
+    margin: 0;
+    padding: 10px;
+    overflow: auto;
+    max-height: 200px;
+    font-size: 12px;
+    background: #fff;
+    border: 1px solid #eee;
+}
+
+.pod-cache-timestamp {
+    margin: 15px 0 0 0;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    color: #646970;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.pod-error {
+    color: #d63638;
+    padding: 10px;
+    background: #fcf0f1;
+    border-left: 4px solid #d63638;
 }
 
 /* Modal */
@@ -166,6 +275,78 @@
 
 .pod-modal-close:hover {
     color: #000;
+}
+
+/* Debug Modal */
+.pod-modal {
+    display: block;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.pod-modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.pod-modal-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: -10px -10px 0 0;
+}
+
+.pod-modal-close:hover {
+    color: #000;
+}
+
+.pod-debug-info {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+.pod-debug-info h3 {
+    margin: 20px 0 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.pod-product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.pod-product-item {
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #eee;
+}
+
+.pod-debug-info pre {
+    background: #f5f5f5;
+    padding: 10px;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-size: 12px;
+    margin: 10px 0;
 }
 
 /* Form Elements */
@@ -219,6 +400,14 @@
     margin: 0;
 }
 
+.pod-cancel-cache {
+    margin-top: 10px !important;
+}
+
+.pod-cancel-cache .dashicons {
+    margin-top: 3px;
+}
+
 /* Notice Styles */
 .pod-connection-notice {
     margin: 16px 0 0 0;
@@ -258,13 +447,139 @@
 }
 
 /* Status Messages */
-.pod-create-status {
-    margin-top: 10px;
+.pod-status-messages {
+    margin: 20px 0;
 }
 
-.pod-create-status .spinner {
-    float: none;
-    margin: 0 10px 0 0;
+.pod-status-messages .notice {
+    margin: 5px 0 15px;
+}
+
+.pod-status-messages p {
+    margin: 0.5em 0;
+    padding: 2px;
+}
+
+/* Cache Controls */
+.pod-cache-controls {
+    margin: 20px 0;
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+}
+
+/* Button States */
+.button.updating-message {
+    position: relative;
+    padding-left: 24px !important;
+}
+
+.button.updating-message:before {
+    position: absolute;
+    content: '';
+    top: 50%;
+    left: 8px;
+    width: 12px;
+    height: 12px;
+    margin-top: -6px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: #fff;
+    animation: pod-spin 0.8s infinite linear;
+}
+
+@keyframes pod-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Designer Page */
+.pod-designer-container {
+    display: flex;
+    gap: 24px;
+    margin-top: 20px;
+}
+
+.pod-designer-sidebar {
+    flex: 0 0 300px;
+}
+
+.pod-designer-preview {
+    flex: 1;
+}
+
+.pod-design-controls,
+.pod-product-details {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.pod-control-group {
+    margin-bottom: 16px;
+}
+
+.pod-control-group:last-child {
+    margin-bottom: 0;
+}
+
+.pod-control-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.pod-preview-container {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 24px;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pod-preview-placeholder {
+    color: #666;
+    font-size: 16px;
+}
+
+#pod-preview-image {
+    max-width: 100%;
+    max-height: 400px;
+}
+
+.pod-size-value {
+    margin-left: 8px;
+    color: #666;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 782px) {
+    .pod-settings-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .pod-form-actions {
+        flex-direction: column;
+    }
+    
+    .pod-form-actions .button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .pod-search-filters {
+        flex-direction: column;
+    }
+    
+    .pod-search-filters select {
+        width: 100%;
+    }
 }
 
 /* Settings Page */
@@ -408,115 +723,68 @@
     margin: 0;
 }
 
-/* Button States */
-.button.updating-message {
-    position: relative;
-    padding-left: 24px !important;
+/* Status Messages */
+.pod-status-messages {
+    margin: 20px 0;
 }
 
-.button.updating-message:before {
-    position: absolute;
-    content: '';
-    top: 50%;
-    left: 8px;
-    width: 12px;
-    height: 12px;
-    margin-top: -6px;
-    border-radius: 50%;
-    border: 2px solid rgba(255,255,255,0.4);
-    border-top-color: #fff;
-    animation: pod-spin 0.8s infinite linear;
+.pod-status-messages .notice {
+    margin: 5px 0 15px;
 }
 
-@keyframes pod-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+.pod-status-messages p {
+    margin: 0.5em 0;
+    padding: 2px;
 }
 
-/* Designer Page */
-.pod-designer-container {
-    display: flex;
-    gap: 24px;
-    margin-top: 20px;
+/* Cache Data Display */
+.pod-cache-summary {
+    margin-top: 24px;
 }
 
-.pod-designer-sidebar {
-    flex: 0 0 300px;
-}
-
-.pod-designer-preview {
-    flex: 1;
-}
-
-.pod-design-controls,
-.pod-product-details {
+.pod-cache-section {
     background: #fff;
     border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 16px;
-    margin-bottom: 20px;
-}
-
-.pod-control-group {
-    margin-bottom: 16px;
-}
-
-.pod-control-group:last-child {
-    margin-bottom: 0;
-}
-
-.pod-control-group label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 500;
-}
-
-.pod-preview-container {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 8px;
     padding: 24px;
-    min-height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 24px;
 }
 
-.pod-preview-placeholder {
-    color: #666;
+.pod-cache-section h3 {
+    margin: 0 0 16px 0;
     font-size: 16px;
+    color: #1d2327;
 }
 
-#pod-preview-image {
-    max-width: 100%;
-    max-height: 400px;
+.pod-cache-section p {
+    margin: 8px 0;
+    color: #50575e;
 }
 
-.pod-size-value {
-    margin-left: 8px;
-    color: #666;
+.pod-sample-data {
+    margin-top: 16px;
 }
 
-/* Responsive Design */
-@media screen and (max-width: 782px) {
-    .pod-settings-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .pod-form-actions {
-        flex-direction: column;
-    }
-    
-    .pod-form-actions .button {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-    
-    .pod-search-filters {
-        flex-direction: column;
-    }
-    
-    .pod-search-filters select {
-        width: 100%;
-    }
+.pod-sample-data pre {
+    background: #f6f7f7;
+    padding: 12px;
+    border-radius: 4px;
+    overflow: auto;
+    max-height: 200px;
+}
+
+.pod-cache-timestamp {
+    color: #646970;
+    font-size: 13px;
+    text-align: right;
+    margin-top: 16px;
+}
+
+.pod-error {
+    color: #d63638;
+    padding: 12px;
+    background: #fcf0f1;
+    border-left: 4px solid #d63638;
+    margin: 20px 0;
 }

@@ -6,8 +6,16 @@ if (!defined('WPINC')) {
 
 $printify = new POD_Printify_Platform();
 $api_key = $printify->get_api_key();
-$is_updating = $printify->is_cache_updating();
-$progress = $printify->get_cache_progress();
+$is_updating = get_option('pod_printify_cache_updating', false); // Use option directly instead of method call
+$progress = get_option('pod_printify_cache_progress', array(
+    'total_blueprints' => 0,
+    'current_blueprint' => 0,
+    'total_providers' => 0,
+    'current_provider' => 0,
+    'status' => 'idle',
+    'phase' => '',
+    'current_item' => ''
+));
 $last_update = get_option('pod_printify_last_cache_update');
 ?>
 
@@ -55,33 +63,32 @@ $last_update = get_option('pod_printify_last_cache_update');
         <!-- Cache Management -->
         <div class="pod-settings-card">
             <h2><span class="dashicons dashicons-database"></span> Cache Management</h2>
-            <div class="pod-cache-info">
-                <?php if ($last_update): ?>
-                    <div class="pod-info-item">
-                        <span class="dashicons dashicons-calendar-alt"></span>
-                        Last Update: <?php echo esc_html(human_time_diff(strtotime($last_update), current_time('timestamp'))); ?> ago
-                    </div>
-                <?php endif; ?>
-                
-                <div class="pod-info-item">
-                    <span class="dashicons dashicons-info"></span>
-                    Cache updates improve performance by storing product data locally
-                </div>
-            </div>
-
+            <?php 
+            $last_update = get_option('pod_printify_last_cache_update');
+            $is_updating = get_option('pod_printify_cache_updating', false);
+            ?>
+            
             <div class="pod-cache-status">
-                <div id="pod-cache-progress" style="<?php echo $is_updating ? '' : 'display: none;'; ?>">
+                <div class="pod-info-message">
+                    <?php if ($last_update): ?>
+                        <p>Last successful update: <?php echo human_time_diff(strtotime($last_update), current_time('timestamp')); ?> ago</p>
+                    <?php else: ?>
+                        <p>Cache has not been initialized yet. Click "Update Cache Now" to build the cache.</p>
+                    <?php endif; ?>
+                </div>
+
+                <div id="pod-cache-progress" style="display: none;">
                     <div class="pod-progress">
                         <div class="pod-progress-bar">
-                            <div class="pod-progress-fill" style="width: <?php echo esc_attr(($progress['total'] > 0) ? ($progress['current'] / $progress['total'] * 100) : 0); ?>%"></div>
+                            <div class="pod-progress-fill" style="width: 0%"></div>
                         </div>
                         <div class="pod-progress-stats">
-                            <span class="pod-progress-percentage">
-                                <?php echo esc_html(($progress['total'] > 0) ? round(($progress['current'] / $progress['total'] * 100)) : 0); ?>%
-                            </span>
-                            <span class="pod-progress-numbers">
-                                <?php echo esc_html($progress['current']); ?> / <?php echo esc_html($progress['total']); ?> products
-                            </span>
+                            <span class="pod-progress-percentage">0%</span>
+                            <span class="pod-progress-numbers">Initializing...</span>
+                        </div>
+                        <div class="pod-progress-phase">
+                            <span class="pod-phase-label"></span>: 
+                            <span class="pod-phase-item"></span>
                         </div>
                     </div>
                     <button type="button" class="button pod-cancel-cache">
@@ -89,10 +96,21 @@ $last_update = get_option('pod_printify_last_cache_update');
                     </button>
                 </div>
 
-                <div id="pod-cache-controls" style="<?php echo $is_updating ? 'display: none;' : ''; ?>">
-                    <button type="button" class="button button-primary pod-refresh-cache">
+                <div class="pod-cache-controls" id="pod-cache-controls">
+                    <button class="button button-primary pod-refresh-cache">
                         <span class="dashicons dashicons-update"></span> Update Cache Now
                     </button>
+                    <button class="button pod-debug-cache">
+                        <span class="dashicons dashicons-admin-tools"></span> Reset Cache Flags
+                    </button>
+                    <button class="button pod-view-cache">
+                        <span class="dashicons dashicons-visibility"></span> View Cache Data
+                    </button>
+                </div>
+
+                <div id="pod-cache-data" style="display: none; margin-top: 20px;">
+                    <h3>Cache Data</h3>
+                    <pre class="pod-cache-data-content" style="background: #f8f9fa; padding: 15px; border-radius: 4px; overflow: auto; max-height: 400px;"></pre>
                 </div>
             </div>
         </div>

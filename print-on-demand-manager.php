@@ -12,6 +12,25 @@ if (!defined('WPINC')) {
     die;
 }
 
+register_deactivation_hook(__FILE__, 'pod_deactivate');
+
+/**
+ * The code that runs during plugin deactivation.
+ */
+function pod_deactivate() {
+    // Clean up any running cache updates
+    $printify = POD_Printify_Platform::get_instance();
+    $printify->cancel_cache_update();
+    
+    // Clean up options
+    delete_option('pod_printify_cache_updating');
+    delete_option('pod_printify_cache_progress');
+    delete_option('pod_printify_last_cache_update');
+    
+    // Clear scheduled hooks
+    wp_clear_scheduled_hook('pod_printify_cache_products');
+}
+
 // Define plugin constants
 define('POD_MANAGER_VERSION', time()); // Force cache bust during development
 define('POD_MANAGER_PLUGIN_DIR', plugin_dir_path(__FILE__));
@@ -50,20 +69,6 @@ function pod_manager_activate() {
 register_deactivation_hook(__FILE__, 'pod_manager_deactivate');
 function pod_manager_deactivate() {
     try {
-        // First, try to cancel any ongoing cache update
-        $printify = new POD_Printify_Platform();
-        $is_updating = $printify->is_cache_updating();
-        $cancelled = $printify->cancel_cache_update();
-        
-        // Remove all hooks and scheduled events
-        POD_Cron::clear_scheduled_events();
-        
-        // Remove AJAX handlers properly
-        $ajax = new POD_Ajax();
-        remove_action('wp_ajax_pod_refresh_cache', array($ajax, 'refresh_cache'));
-        remove_action('wp_ajax_pod_cancel_cache', array($ajax, 'cancel_cache'));
-        remove_action('wp_ajax_pod_get_cache_status', array($ajax, 'get_cache_status'));
-        
         // Force cleanup of all cache-related options
         $options_to_delete = array(
             'pod_printify_cache_updating',
@@ -82,13 +87,24 @@ function pod_manager_deactivate() {
         // Remove any transients
         delete_transient('pod_printify_all_products_detailed');
         
+        // Remove AJAX handlers properly
+        $ajax = POD_Ajax::get_instance();
+        remove_action('wp_ajax_pod_refresh_cache', array($ajax, 'refresh_cache'));
+        remove_action('wp_ajax_pod_cancel_cache', array($ajax, 'cancel_cache'));
+        remove_action('wp_ajax_pod_get_cache_status', array($ajax, 'get_cache_status'));
+        
         // Force clear any WP cron hooks for our plugin
         $timestamp = wp_next_scheduled('pod_printify_cache_products');
         if ($timestamp) {
             wp_unschedule_event($timestamp, 'pod_printify_cache_products');
         }
         wp_clear_scheduled_hook('pod_printify_cache_products');
+        
+        // Remove all hooks and scheduled events
+        POD_Cron::clear_scheduled_events();
+        
     } catch (Exception $e) {
+        error_log('POD Manager: Error during deactivation: ' . $e->getMessage());
         // Even if there's an error, try to force cleanup
         delete_option('pod_printify_cache_updating');
         delete_option('pod_printify_all_products_detailed_temp');
@@ -119,8 +135,7 @@ function pod_manager_init() {
     }
     
     // Initialize AJAX handlers
-    $admin_ajax = new POD_Admin_Ajax();
-    $admin_ajax->init();
+    new POD_Admin_Ajax(); // Constructor handles initialization
     
     // Get cron instance (initialization happens in constructor)
     POD_Cron::get_instance();

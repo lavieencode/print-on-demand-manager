@@ -26,6 +26,7 @@ class POD_Cron {
         add_action('pod_printify_cache_products', array($this, 'run_product_cache_update'));
         add_filter('cron_schedules', array($this, 'register_cron_schedules'));
         add_action('admin_init', array($this, 'handle_manual_trigger'));
+        $this->register_hooks();
     }
 
     /**
@@ -95,6 +96,40 @@ class POD_Cron {
     }
 
     /**
+     * Register cron hooks
+     */
+    public function register_hooks() {
+        add_action('pod_printify_process_cache_chunk', array($this, 'process_cache_chunk'));
+    }
+
+    /**
+     * Process a cache chunk
+     */
+    public function process_cache_chunk() {
+        $platform = POD_Printify_Platform::get_instance();
+        
+        // First check if we need to clean up a stale process
+        if ($platform->is_cache_stuck()) {
+            error_log('POD Manager: Cache update appears stuck, cleaning up');
+            $platform->cancel_cache_update();
+            return;
+        }
+
+        // Then check if we should continue processing
+        if (!$platform->is_cache_updating()) {
+            error_log('POD Manager: Cache update not in progress, skipping chunk');
+            return;
+        }
+
+        try {
+            $platform->process_cache_chunk();
+        } catch (Exception $e) {
+            error_log('POD Manager: Error processing cache chunk: ' . $e->getMessage());
+            $platform->cancel_cache_update();
+        }
+    }
+
+    /**
      * Schedule the cron events
      */
     public static function schedule_events() {
@@ -111,41 +146,40 @@ class POD_Cron {
      * Clear the scheduled events and cleanup hooks
      */
     public static function clear_scheduled_events() {
-        $log_file = dirname(dirname(__FILE__)) . '/deactivation_log.txt';
-        file_put_contents($log_file, date('Y-m-d H:i:s') . " - [CRON] Starting clear_scheduled_events\n", FILE_APPEND);
+        error_log('POD Manager: [CRON] Starting clear_scheduled_events');
         
         try {
             // First remove all hooks to prevent any new scheduling
-            file_put_contents($log_file, date('Y-m-d H:i:s') . " - [CRON] Removing pod_printify_cache_products actions\n", FILE_APPEND);
+            error_log('POD Manager: [CRON] Removing pod_printify_cache_products actions');
             remove_action('pod_printify_cache_products', array(self::get_instance(), 'run_product_cache_update'));
             
-            file_put_contents($log_file, date('Y-m-d H:i:s') . " - [CRON] Removing init actions\n", FILE_APPEND);
+            error_log('POD Manager: [CRON] Removing init actions');
             remove_action('init', array(self::get_instance(), 'register_cron_schedules'));
             
-            file_put_contents($log_file, date('Y-m-d H:i:s') . " - [CRON] Removing admin_init actions\n", FILE_APPEND);
+            error_log('POD Manager: [CRON] Removing admin_init actions');
             remove_action('admin_init', array(self::get_instance(), 'handle_manual_trigger'));
             
             // Then clear all scheduled events
-            file_put_contents($log_file, date('Y-m-d H:i:s') . " - [CRON] Checking for scheduled events\n", FILE_APPEND);
+            error_log('POD Manager: [CRON] Checking for scheduled events');
             $timestamp = wp_next_scheduled('pod_printify_cache_products');
-            file_put_contents($log_file, date('Y-m-d H:i:s') . " - [CRON] Next scheduled timestamp: " . ($timestamp ? date('Y-m-d H:i:s', $timestamp) : 'none') . "\n", FILE_APPEND);
+            error_log('POD Manager: [CRON] Next scheduled timestamp: ' . ($timestamp ? date('Y-m-d H:i:s', $timestamp) : 'none'));
             
             if ($timestamp) {
-                file_put_contents($log_file, date('Y-m-d H:i:s') . " - [CRON] Unscheduling event at timestamp\n", FILE_APPEND);
+                error_log('POD Manager: [CRON] Unscheduling event at timestamp');
                 wp_unschedule_event($timestamp, 'pod_printify_cache_products');
             }
             
-            file_put_contents($log_file, date('Y-m-d H:i:s') . " - [CRON] Clearing scheduled hook\n", FILE_APPEND);
+            error_log('POD Manager: [CRON] Clearing scheduled hook');
             wp_clear_scheduled_hook('pod_printify_cache_products');
             
             // Reset the singleton instance
-            file_put_contents($log_file, date('Y-m-d H:i:s') . " - [CRON] Resetting singleton instance\n", FILE_APPEND);
+            error_log('POD Manager: [CRON] Resetting singleton instance');
             self::$instance = null;
             
-            file_put_contents($log_file, date('Y-m-d H:i:s') . " - [CRON] clear_scheduled_events completed successfully\n", FILE_APPEND);
+            error_log('POD Manager: [CRON] clear_scheduled_events completed successfully');
         } catch (Exception $e) {
-            file_put_contents($log_file, date('Y-m-d H:i:s') . " - [CRON] Error in clear_scheduled_events: " . $e->getMessage() . "\n", FILE_APPEND);
-            file_put_contents($log_file, date('Y-m-d H:i:s') . " - [CRON] " . $e->getTraceAsString() . "\n", FILE_APPEND);
+            error_log('POD Manager: [CRON] Error in clear_scheduled_events: ' . $e->getMessage());
+            error_log('POD Manager: [CRON] ' . $e->getTraceAsString());
         }
     }
 }

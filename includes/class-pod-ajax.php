@@ -4,12 +4,35 @@
  */
 class POD_Ajax {
     /**
+     * Instance of this class.
+     *
+     * @var POD_Ajax
+     */
+    private static $instance = null;
+
+    /**
+     * Get an instance of this class.
+     *
+     * @return POD_Ajax
+     */
+    public static function get_instance() {
+        if (null === self::$instance) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
+    /**
      * Constructor
      */
-    public function __construct() {
+    private function __construct() {
+        // Admin-only AJAX handlers
+        add_action('wp_ajax_pod_verify_connection', array($this, 'verify_connection'));
         add_action('wp_ajax_pod_refresh_cache', array($this, 'refresh_cache'));
         add_action('wp_ajax_pod_cancel_cache', array($this, 'cancel_cache'));
         add_action('wp_ajax_pod_get_cache_status', array($this, 'get_cache_status'));
+        add_action('wp_ajax_pod_process_cache_update', array($this, 'process_cache_update'));
+        add_action('wp_ajax_pod_debug_cache', array($this, 'debug_cache'));
         add_action('wp_ajax_pod_search_products', array($this, 'search_products'));
         add_action('wp_ajax_pod_upload_image', array($this, 'upload_image'));
         add_action('wp_ajax_pod_create_product', array($this, 'create_product'));
@@ -19,7 +42,8 @@ class POD_Ajax {
      * Verify nonce and user capabilities
      */
     private function verify_request($nonce_action) {
-        if (!check_ajax_referer($nonce_action, 'nonce', false)) {
+        $nonce = isset($_POST['nonce']) ? sanitize_text_field($_POST['nonce']) : '';
+        if (!wp_verify_nonce($nonce, $nonce_action)) {
             wp_send_json_error('Invalid nonce');
             wp_die();
         }
@@ -36,6 +60,9 @@ class POD_Ajax {
      * Refresh product cache
      */
     public function refresh_cache() {
+        error_log('POD Manager: Refresh cache called');
+        error_log('POD Manager: POST data: ' . print_r($_POST, true));
+        
         $this->verify_request('pod_refresh_cache');
 
         $printify = new POD_Printify_Platform();

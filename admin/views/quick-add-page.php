@@ -5,11 +5,60 @@ if (!defined('WPINC')) {
 }
 
 $printify = new POD_Printify_Platform();
-$providers = $printify->get_cached_providers();
+$providers = $printify->get_cached_providers(false); // Add false parameter to prevent auto-refresh
+
+// Add cache refresh button and progress UI
 ?>
 
 <div class="wrap">
-    <h1>Quick Add Product</h1>
+    <h1 class="wp-heading-inline">Quick Add Products</h1>
+
+    <!-- Cache Controls -->
+    <div class="pod-cache-controls" id="pod-cache-controls">
+        <?php 
+        // Create nonces for all AJAX actions
+        $nonces = array(
+            'refresh_cache' => wp_create_nonce('pod_refresh_cache'),
+            'cancel_cache' => wp_create_nonce('pod_cancel_cache'),
+            'get_cache_status' => wp_create_nonce('pod_get_cache_status'),
+            'debug_cache' => wp_create_nonce('pod_debug_cache')
+        );
+        ?>
+        <script>
+            var podNonces = <?php echo json_encode($nonces); ?>;
+        </script>
+        
+        <div class="pod-cache-status">
+            <?php
+            $last_update = get_option('pod_printify_last_cache_update');
+            if ($last_update) {
+                echo '<p>Last cache update: ' . human_time_diff(strtotime($last_update), current_time('timestamp')) . ' ago</p>';
+            }
+            ?>
+        </div>
+        <button type="button" class="button button-primary pod-refresh-cache">
+            <span class="dashicons dashicons-update"></span> Update Cache Now
+        </button>
+        <button type="button" class="button pod-debug-cache">
+            <span class="dashicons dashicons-code-standards"></span> View Cache Data
+        </button>
+    </div>
+
+    <!-- Cache Progress -->
+    <div id="pod-cache-progress" class="pod-cache-progress" style="display: none;">
+        <div class="pod-progress-bar">
+            <div class="pod-progress-fill"></div>
+        </div>
+        <div class="pod-progress-info">
+            <span class="pod-progress-percentage">0%</span>
+            <span class="pod-phase-label"></span>
+            <span class="pod-phase-item"></span>
+            <span class="pod-progress-numbers"></span>
+        </div>
+        <button type="button" class="button pod-cancel-cache" <?php echo wp_create_nonce('pod_cancel_cache'); ?>>
+            Cancel Update
+        </button>
+    </div>
 
     <div class="pod-quick-add-container">
         <!-- Search Form -->
