@@ -24,12 +24,15 @@ class POD_Cron {
      */
     private function __construct() {
         add_action('pod_printify_cache_products', array($this, 'run_product_cache_update'));
-        add_action('init', array($this, 'register_cron_schedules'));
+        add_filter('cron_schedules', array($this, 'register_cron_schedules'));
         add_action('admin_init', array($this, 'handle_manual_trigger'));
     }
 
     /**
      * Register custom cron schedules if needed
+     * 
+     * @param array $schedules Array of registered cron schedules
+     * @return array Modified schedules array
      */
     public function register_cron_schedules($schedules) {
         // Add twice daily schedule if needed

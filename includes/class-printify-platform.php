@@ -11,13 +11,22 @@ class POD_Printify_Platform {
      * Constructor
      */
     public function __construct() {
-        $this->api_key = get_option('pod_printify_api_key');
+        $this->api_key = get_option('pod_printify_api_key', '');
+        $this->shop_id = get_option('pod_printify_shop_id', '');
     }
 
     /**
      * Make an API request to Printify
      */
     private function make_request($endpoint, $method = 'GET', $body = null) {
+        error_log('POD Manager: Making API request to: ' . $endpoint);
+        error_log('POD Manager: API Key: ' . (empty($this->api_key) ? 'empty' : 'set'));
+        
+        if (empty($this->api_key)) {
+            error_log('POD Manager: No API key set');
+            return new WP_Error('no_api_key', 'API key is not set. Please configure it in the settings.');
+        }
+
         $url = $this->api_base_url . $endpoint;
         
         $args = array(
@@ -25,12 +34,16 @@ class POD_Printify_Platform {
             'headers' => array(
                 'Authorization' => 'Bearer ' . $this->api_key,
                 'Content-Type' => 'application/json'
-            )
+            ),
+            'timeout' => 30
         );
 
         if ($body) {
             $args['body'] = json_encode($body);
         }
+
+        error_log('POD Manager: Request URL: ' . $url);
+        error_log('POD Manager: Request Args: ' . print_r($args, true));
 
         $response = wp_remote_request($url, $args);
 
@@ -41,8 +54,12 @@ class POD_Printify_Platform {
 
         $body = wp_remote_retrieve_body($response);
         $data = json_decode($body, true);
+        $status = wp_remote_retrieve_response_code($response);
 
-        if (wp_remote_retrieve_response_code($response) >= 400) {
+        error_log('POD Manager: Response Status: ' . $status);
+        error_log('POD Manager: Response Body: ' . $body);
+
+        if ($status >= 400) {
             error_log('POD Manager: API error: ' . $body);
             return new WP_Error('api_error', isset($data['message']) ? $data['message'] : 'API request failed');
         }
@@ -350,6 +367,34 @@ class POD_Printify_Platform {
             
             return new WP_Error('cache_error', $e->getMessage());
         }
+    }
+
+    /**
+     * Verify API connection and get shop count
+     */
+    public function verify_connection() {
+        if (empty($this->api_key)) {
+            // Return error without adding to admin notices
+            return new WP_Error('no_api_key', 'API key is required');
+        }
+
+        $response = $this->make_request('shops.json');
+
+        if (is_wp_error($response)) {
+            // Return error without adding to admin notices
+            return $response;
+        }
+
+        if (!is_array($response)) {
+            // Return error without adding to admin notices
+            return new WP_Error('invalid_response', 'Invalid response from API');
+        }
+
+        // Return success without adding to admin notices
+        return array(
+            'shop_count' => count($response),
+            'shops' => $response
+        );
     }
 
     /**

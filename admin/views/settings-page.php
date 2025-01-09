@@ -6,80 +6,95 @@ if (!defined('WPINC')) {
 
 $printify = new POD_Printify_Platform();
 $api_key = $printify->get_api_key();
-$shop_id = get_option('pod_printify_shop_id');
 $is_updating = $printify->is_cache_updating();
 $progress = $printify->get_cache_progress();
 $last_update = get_option('pod_printify_last_cache_update');
 ?>
 
 <div class="wrap">
-    <h1>Print on Demand Manager Settings</h1>
+    <h1 class="wp-heading-inline">Print on Demand Manager</h1>
+    
+    <div class="pod-settings-grid">
+        <!-- API Configuration -->
+        <div class="pod-settings-card">
+            <h2><span class="dashicons dashicons-admin-generic"></span> API Configuration</h2>
+            <form method="post" action="options.php">
+                <?php settings_fields('pod_manager_settings'); ?>
+                <?php do_settings_sections('pod_manager_settings'); ?>
 
-    <form method="post" action="options.php">
-        <?php settings_fields('pod_manager_settings'); ?>
-        <?php do_settings_sections('pod_manager_settings'); ?>
-
-        <table class="form-table">
-            <tr>
-                <th scope="row">
+                <div class="pod-form-group">
                     <label for="pod_printify_api_key">Printify API Key</label>
-                </th>
-                <td>
-                    <input type="password" 
-                           id="pod_printify_api_key" 
-                           name="pod_printify_api_key" 
-                           value="<?php echo esc_attr($api_key); ?>" 
-                           class="regular-text">
+                    <div class="pod-input-group">
+                        <input type="password" 
+                               id="pod_printify_api_key" 
+                               name="pod_printify_api_key" 
+                               value="<?php echo esc_attr($api_key); ?>" 
+                               class="regular-text">
+                        <button type="button" class="button pod-toggle-password">
+                            <span class="dashicons dashicons-visibility"></span>
+                        </button>
+                    </div>
                     <p class="description">
-                        Get your API key from the <a href="https://printify.com/app/api" target="_blank">Printify API settings</a>.
+                        Get your API key from the <a href="https://printify.com/app/api" target="_blank">Printify API settings</a>
                     </p>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">
-                    <label for="pod_printify_shop_id">Shop ID</label>
-                </th>
-                <td>
-                    <input type="text" 
-                           id="pod_printify_shop_id" 
-                           name="pod_printify_shop_id" 
-                           value="<?php echo esc_attr($shop_id); ?>" 
-                           class="regular-text">
-                    <p class="description">
-                        Your Printify shop ID.
-                    </p>
-                </td>
-            </tr>
-        </table>
+                </div>
 
-        <?php submit_button(); ?>
-    </form>
+                <div class="pod-form-actions">
+                    <?php submit_button('Save API Key', 'primary', 'submit', false); ?>
+                    <?php wp_nonce_field('pod_verify_connection', 'pod_verify_connection_nonce'); ?>
+                    <button type="button" class="button button-secondary pod-verify-connection">
+                        <span class="dashicons dashicons-yes-alt"></span> Verify Connection
+                    </button>
+                </div>
 
-    <hr>
+                <div class="pod-connection-notice"></div>
 
-    <h2>Product Cache Management</h2>
-    <p>
-        The plugin caches product data from Printify to improve performance. 
-        You can manually refresh the cache here.
-    </p>
-
-    <div class="pod-cache-status">
-        <?php if ($last_update): ?>
-            <p>Last cache update: <?php echo esc_html(human_time_diff(strtotime($last_update), current_time('timestamp'))); ?> ago</p>
-        <?php endif; ?>
-
-        <div id="pod-cache-progress" style="<?php echo $is_updating ? '' : 'display: none;'; ?>">
-            <div class="pod-progress-bar">
-                <div class="pod-progress-fill" style="width: <?php echo esc_attr(($progress['total'] > 0) ? ($progress['current'] / $progress['total'] * 100) : 0); ?>%"></div>
-            </div>
-            <p class="pod-progress-text">
-                Processing <?php echo esc_html($progress['current']); ?> of <?php echo esc_html($progress['total']); ?> products...
-            </p>
-            <button type="button" class="button pod-cancel-cache">Cancel Update</button>
+            </form>
         </div>
 
-        <div id="pod-cache-controls" style="<?php echo $is_updating ? 'display: none;' : ''; ?>">
-            <button type="button" class="button button-primary pod-refresh-cache">Refresh Cache</button>
+        <!-- Cache Management -->
+        <div class="pod-settings-card">
+            <h2><span class="dashicons dashicons-database"></span> Cache Management</h2>
+            <div class="pod-cache-info">
+                <?php if ($last_update): ?>
+                    <div class="pod-info-item">
+                        <span class="dashicons dashicons-calendar-alt"></span>
+                        Last Update: <?php echo esc_html(human_time_diff(strtotime($last_update), current_time('timestamp'))); ?> ago
+                    </div>
+                <?php endif; ?>
+                
+                <div class="pod-info-item">
+                    <span class="dashicons dashicons-info"></span>
+                    Cache updates improve performance by storing product data locally
+                </div>
+            </div>
+
+            <div class="pod-cache-status">
+                <div id="pod-cache-progress" style="<?php echo $is_updating ? '' : 'display: none;'; ?>">
+                    <div class="pod-progress">
+                        <div class="pod-progress-bar">
+                            <div class="pod-progress-fill" style="width: <?php echo esc_attr(($progress['total'] > 0) ? ($progress['current'] / $progress['total'] * 100) : 0); ?>%"></div>
+                        </div>
+                        <div class="pod-progress-stats">
+                            <span class="pod-progress-percentage">
+                                <?php echo esc_html(($progress['total'] > 0) ? round(($progress['current'] / $progress['total'] * 100)) : 0); ?>%
+                            </span>
+                            <span class="pod-progress-numbers">
+                                <?php echo esc_html($progress['current']); ?> / <?php echo esc_html($progress['total']); ?> products
+                            </span>
+                        </div>
+                    </div>
+                    <button type="button" class="button pod-cancel-cache">
+                        <span class="dashicons dashicons-dismiss"></span> Cancel Update
+                    </button>
+                </div>
+
+                <div id="pod-cache-controls" style="<?php echo $is_updating ? 'display: none;' : ''; ?>">
+                    <button type="button" class="button button-primary pod-refresh-cache">
+                        <span class="dashicons dashicons-update"></span> Update Cache Now
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

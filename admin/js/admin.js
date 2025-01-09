@@ -8,94 +8,147 @@ jQuery(document).ready(function($) {
     const $loading = $('.pod-loading');
     const $noResults = $('.pod-no-results');
     const $modal = $('#pod-designer-modal');
+    const $connectionNotice = $('.pod-connection-notice');
     
     let updateTimer = null;
     let currentProduct = null;
 
-    // Cache Management
-    $('.pod-refresh-cache').on('click', function() {
+    // API Connection Verification
+    $('.pod-verify-connection').on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const $button = $(this);
+        const nonce = $('#pod_verify_connection_nonce').val();
+        
+        $button.prop('disabled', true).addClass('updating-message');
+        
+        // Clear any existing notice
+        $connectionNotice.empty();
+        
         $.ajax({
-            url: ajaxurl,
+            url: podManagerAdmin.ajaxurl,
             type: 'POST',
             data: {
-                action: 'pod_refresh_cache',
-                nonce: podManagerAdmin.nonce.refresh_cache
+                action: 'pod_verify_connection',
+                nonce: nonce
             },
             success: function(response) {
                 if (response.success) {
-                    $cacheProgress.show();
-                    $cacheControls.hide();
-                    startProgressCheck();
+                    $connectionNotice.html(`
+                        <div class="pod-notice pod-notice-success">
+                            <p><strong>Connection successful!</strong> Found ${response.data.shop_count} shops.</p>
+                        </div>
+                    `);
                 } else {
-                    alert('Failed to start cache update: ' + response.data);
+                    $connectionNotice.html(`
+                        <div class="pod-notice pod-notice-error">
+                            <p><strong>Connection failed!</strong> ${response.data.message}</p>
+                        </div>
+                    `);
                 }
             },
-            error: function() {
-                alert('Failed to start cache update');
+            error: function(jqXHR, textStatus, errorThrown) {
+                $connectionNotice.html(`
+                    <div class="pod-notice pod-notice-error">
+                        <p><strong>Connection failed!</strong> Failed to verify connection: ${errorThrown}</p>
+                    </div>
+                `);
+            },
+            complete: function() {
+                $button.prop('disabled', false).removeClass('updating-message');
             }
         });
+        
+        return false;
     });
 
-    $('.pod-cancel-cache').on('click', function() {
-        $.ajax({
-            url: ajaxurl,
-            type: 'POST',
-            data: {
-                action: 'pod_cancel_cache',
-                nonce: podManagerAdmin.nonce.cancel_cache
-            },
-            success: function(response) {
-                if (response.success) {
-                    stopProgressCheck();
-                    $cacheProgress.hide();
-                    $cacheControls.show();
-                } else {
-                    alert('Failed to cancel cache update: ' + response.data);
-                }
-            },
-            error: function() {
-                alert('Failed to cancel cache update');
-            }
-        });
-    });
-
-    function startProgressCheck() {
-        updateTimer = setInterval(checkProgress, 2000);
+    function startCacheProgress() {
+        $cacheProgress.show();
+        $cacheControls.hide();
+        updateTimer = setInterval(updateCacheProgress, 2000);
     }
-
-    function stopProgressCheck() {
+    
+    function stopCacheProgress() {
         if (updateTimer) {
             clearInterval(updateTimer);
             updateTimer = null;
         }
     }
-
-    function checkProgress() {
+    
+    function updateCacheProgress() {
         $.ajax({
-            url: ajaxurl,
+            url: podManagerAdmin.ajaxurl,
             type: 'POST',
             data: {
-                action: 'pod_get_cache_status',
-                nonce: podManagerAdmin.nonce.get_cache_status
+                action: 'pod_check_cache_progress'
             },
             success: function(response) {
                 if (response.success) {
-                    const data = response.data;
-                    if (!data.is_updating) {
-                        stopProgressCheck();
+                    const progress = response.data;
+                    const percentage = progress.total > 0 ? Math.round((progress.current / progress.total) * 100) : 0;
+                    
+                    $progressBar.css('width', percentage + '%');
+                    $('.pod-progress-percentage').text(percentage + '%');
+                    $('.pod-progress-numbers').text(progress.current + ' / ' + progress.total + ' products');
+                    
+                    if (!progress.is_updating) {
+                        stopCacheProgress();
                         $cacheProgress.hide();
                         $cacheControls.show();
-                        return;
                     }
-
-                    const progress = data.progress;
-                    const percent = (progress.total > 0) ? (progress.current / progress.total * 100) : 0;
-                    
-                    $progressBar.css('width', percent + '%');
-                    $progressText.text(`Processing ${progress.current} of ${progress.total} products...`);
                 }
             }
         });
+    }
+    
+    $('.pod-refresh-cache').on('click', function() {
+        const $button = $(this);
+        $button.prop('disabled', true).addClass('updating-message');
+        
+        $.ajax({
+            url: podManagerAdmin.ajaxurl,
+            type: 'POST',
+            data: {
+                action: 'pod_refresh_cache'
+            },
+            success: function(response) {
+                if (response.success) {
+                    startCacheProgress();
+                }
+            },
+            complete: function() {
+                $button.prop('disabled', false).removeClass('updating-message');
+            }
+        });
+    });
+    
+    $('.pod-cancel-cache').on('click', function() {
+        const $button = $(this);
+        $button.prop('disabled', true);
+        
+        $.ajax({
+            url: podManagerAdmin.ajaxurl,
+            type: 'POST',
+            data: {
+                action: 'pod_cancel_cache'
+            },
+            success: function(response) {
+                if (response.success) {
+                    stopCacheProgress();
+                    $cacheProgress.hide();
+                    $cacheControls.show();
+                }
+            },
+            complete: function() {
+                $button.prop('disabled', false);
+            }
+        });
+    });
+    
+    // Start progress tracking if cache update is in progress
+    if ($cacheProgress.is(':visible')) {
+        startCacheProgress();
     }
 
     // Product Search
@@ -116,7 +169,7 @@ jQuery(document).ready(function($) {
         $noResults.hide();
 
         $.ajax({
-            url: ajaxurl,
+            url: podManagerAdmin.ajaxurl,
             type: 'POST',
             data: {
                 action: 'pod_search_products',
@@ -193,7 +246,7 @@ jQuery(document).ready(function($) {
         formData.append('image', file);
 
         $.ajax({
-            url: ajaxurl,
+            url: podManagerAdmin.ajaxurl,
             type: 'POST',
             data: formData,
             processData: false,
@@ -234,7 +287,7 @@ jQuery(document).ready(function($) {
         $(this).prop('disabled', true);
 
         $.ajax({
-            url: ajaxurl,
+            url: podManagerAdmin.ajaxurl,
             type: 'POST',
             data: {
                 action: 'pod_create_product',
@@ -258,5 +311,20 @@ jQuery(document).ready(function($) {
                 alert('Failed to create product');
             }
         });
+    });
+
+    // Password Toggle
+    $('.pod-toggle-password').on('click', function() {
+        const $button = $(this);
+        const $input = $('#pod_printify_api_key');
+        const $icon = $button.find('.dashicons');
+        
+        if ($input.attr('type') === 'password') {
+            $input.attr('type', 'text');
+            $icon.removeClass('dashicons-visibility').addClass('dashicons-hidden');
+        } else {
+            $input.attr('type', 'password');
+            $icon.removeClass('dashicons-hidden').addClass('dashicons-visibility');
+        }
     });
 });
