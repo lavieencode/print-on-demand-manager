@@ -1,0 +1,110 @@
+/* Designer Container */
+.pod-designer-container {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Preview Section */
+.pod-preview {
+    background: #f8f8f8;
+    padding: 20px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.pod-preview-image {
+    margin-bottom: 20px;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border: 1px solid #ddd;
+}
+
+.pod-preview-image img {
+    max-width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+}
+
+.pod-preview-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Controls Section */
+.pod-controls {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.pod-control-group {
+    margin-bottom: 20px;
+}
+
+.pod-control-group:last-child {
+    margin-bottom: 0;
+}
+
+.pod-control-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+/* Position Controls */
+.pod-position-controls {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+}
+
+.pod-position {
+    padding: 8px !important;
+    text-align: center;
+}
+
+/* Size Control */
+#pod-design-size {
+    width: 100%;
+}
+
+/* Upload Control */
+#pod-design-upload {
+    width: 100%;
+    padding: 10px;
+    border: 2px dashed #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#pod-design-upload:hover {
+    border-color: #2271b1;
+}
+
+/* Create Button */
+.pod-create-product {
+    width: 100%;
+    margin-top: 20px !important;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 782px) {
+    .pod-designer-container {
+        grid-template-columns: 1fr;
+    }
+
+    .pod-preview-image {
+        min-height: 300px;
+    }
+
+    .pod-preview-image img {
+        max-height: 300px;
+    }
+}

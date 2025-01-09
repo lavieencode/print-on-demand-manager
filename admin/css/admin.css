@@ -1,0 +1,171 @@
+/* General Styles */
+.pod-quick-add-container {
+    margin-top: 20px;
+}
+
+/* Search Form */
+.pod-search-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.pod-search-input {
+    flex: 1;
+    min-width: 200px;
+}
+
+.pod-search-input input {
+    width: 100%;
+    padding: 8px;
+}
+
+.pod-search-filters {
+    display: flex;
+    gap: 10px;
+}
+
+.pod-search-filters select {
+    min-width: 150px;
+}
+
+/* Results Grid */
+.pod-results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.pod-product-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 4px;
+    background: #fff;
+    text-align: center;
+}
+
+.pod-product-card img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.pod-product-card h3 {
+    margin: 0 0 10px;
+    font-size: 16px;
+}
+
+.pod-provider {
+    color: #666;
+    margin: 0 0 15px;
+    font-size: 14px;
+}
+
+/* Loading States */
+.pod-loading,
+.pod-no-results {
+    text-align: center;
+    padding: 40px;
+}
+
+.pod-loading .spinner {
+    float: none;
+    margin: 0 10px 0 0;
+}
+
+/* Cache Progress */
+.pod-cache-status {
+    margin-top: 20px;
+    max-width: 600px;
+}
+
+.pod-progress-bar {
+    height: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.pod-progress-fill {
+    height: 100%;
+    background-color: #2271b1;
+    width: 0;
+    transition: width 0.3s ease;
+}
+
+.pod-progress-text {
+    margin: 10px 0;
+    color: #666;
+}
+
+/* Modal */
+.pod-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 100000;
+}
+
+.pod-modal-content {
+    position: relative;
+    background: #fff;
+    margin: 5vh auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 1200px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 4px;
+}
+
+.pod-modal-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+.pod-modal-close:hover {
+    color: #000;
+}
+
+/* Form Elements */
+.pod-control-group {
+    margin-bottom: 20px;
+}
+
+.pod-control-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.pod-control-group input[type="text"],
+.pod-control-group textarea {
+    width: 100%;
+    padding: 8px;
+}
+
+.pod-control-group textarea {
+    min-height: 100px;
+}
+
+/* Status Messages */
+.pod-create-status {
+    margin-top: 10px;
+}
+
+.pod-create-status .spinner {
+    float: none;
+    margin: 0 10px 0 0;
+}
