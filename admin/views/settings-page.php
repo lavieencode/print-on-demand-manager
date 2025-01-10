@@ -77,7 +77,9 @@ $last_update = get_option('pod_printify_last_cache_update');
                     <?php endif; ?>
                 </div>
 
-                <div id="pod-cache-progress" style="display: none;">
+                <div class="pod-status-message" style="margin: 10px 0;"></div>
+
+                <div class="pod-cache-progress" style="display: none;">
                     <div class="pod-progress">
                         <div class="pod-progress-bar">
                             <div class="pod-progress-fill" style="width: 0%"></div>
@@ -86,17 +88,13 @@ $last_update = get_option('pod_printify_last_cache_update');
                             <span class="pod-progress-percentage">0%</span>
                             <span class="pod-progress-numbers">Initializing...</span>
                         </div>
-                        <div class="pod-progress-phase">
-                            <span class="pod-phase-label"></span>: 
-                            <span class="pod-phase-item"></span>
-                        </div>
                     </div>
                     <button type="button" class="button pod-cancel-cache">
                         <span class="dashicons dashicons-dismiss"></span> Cancel Update
                     </button>
                 </div>
 
-                <div class="pod-cache-controls" id="pod-cache-controls">
+                <div class="pod-cache-controls">
                     <button class="button button-primary pod-refresh-cache">
                         <span class="dashicons dashicons-update"></span> Update Cache Now
                     </button>
@@ -108,7 +106,7 @@ $last_update = get_option('pod_printify_last_cache_update');
                     </button>
                 </div>
 
-                <div id="pod-cache-data" style="display: none; margin-top: 20px;">
+                <div class="pod-cache-data" style="display: none; margin-top: 20px;">
                     <h3>Cache Data</h3>
                     <pre class="pod-cache-data-content" style="background: #f8f9fa; padding: 15px; border-radius: 4px; overflow: auto; max-height: 400px;"></pre>
                 </div>

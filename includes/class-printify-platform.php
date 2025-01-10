@@ -95,12 +95,19 @@ class POD_Printify_Platform {
     public function __construct() {
         error_log('POD Manager: Initializing Printify Platform');
         
-        // Load credentials from WordPress options
-        $this->api_key = get_option('pod_printify_api_key', '');
-        $this->shop_id = get_option('pod_printify_shop_id', '');
-        
-        error_log('POD Manager: API Key exists: ' . (!empty($this->api_key) ? 'yes (' . strlen($this->api_key) . ' chars)' : 'no'));
-        error_log('POD Manager: Shop ID exists: ' . (!empty($this->shop_id) ? 'yes (' . $this->shop_id . ')' : 'no'));
+        // Skip API validation if we're in the middle of a cache update
+        if (!get_option('pod_printify_cache_updating', false)) {
+            error_log('POD Manager: API Key exists: ' . ($this->has_api_key() ? 'yes (' . strlen($this->get_api_key()) . ' chars)' : 'no'));
+            error_log('POD Manager: Shop ID exists: ' . ($this->has_shop_id() ? 'yes (' . $this->get_shop_id() . ')' : 'no'));
+            
+            // If we have an API key, validate it
+            if ($this->has_api_key()) {
+                error_log('POD Manager: Setting new API key');
+                $this->set_api_key($this->get_api_key());
+            }
+        } else {
+            error_log('POD Manager: Skipping API validation during cache update');
+        }
     }
 
     /**
@@ -157,15 +164,11 @@ class POD_Printify_Platform {
                 return new WP_Error('emergency_stop', 'Emergency stop activated');
             }
 
-            // Check if we're in a long-running process
-            $start_time = get_option('pod_printify_cache_start_time');
-            if ($start_time) {
-                $elapsed_time = time() - $start_time;
-                if ($elapsed_time > $this->max_chunk_time) {
-                    error_log('POD Manager: Process running too long, forcing stop');
-                    $this->cancel_cache_update();
-                    return new WP_Error('timeout', 'Process timeout');
-                }
+            // Check if current chunk has timed out
+            $chunk_start_time = get_option('pod_printify_chunk_start_time');
+            if ($chunk_start_time && (time() - $chunk_start_time) > $this->max_chunk_time) {
+                error_log('POD Manager: Chunk timeout reached, will continue with next chunk');
+                return new WP_Error('chunk_timeout', 'Chunk timeout reached');
             }
 
             // Check for force stop
@@ -508,13 +511,10 @@ class POD_Printify_Platform {
             update_option('pod_printify_last_activity', time());
 
             // Initialize progress tracking
-            $this->set_running_process();
-
-            // Initialize progress tracking
             $progress = array(
                 'status' => 'running',
-                'phase' => 'initialization',
-                'current_item' => 'Starting cache update',
+                'phase' => 'processing_blueprints',  
+                'current_item' => 'Processing blueprint 1 of ' . count($blueprints),
                 'current' => 0,
                 'total' => count($blueprints),
                 'percentage' => 0,
@@ -522,10 +522,11 @@ class POD_Printify_Platform {
             );
             update_option('pod_printify_cache_progress', $progress);
 
-            // Schedule the first chunk
-            wp_schedule_single_event(time(), 'pod_printify_process_cache_chunk');
+            // Set process ID and schedule first chunk
+            $this->set_running_process();
+            wp_schedule_single_event(time() + 1, 'pod_printify_process_cache_chunk');
             
-            error_log('POD Manager: Cache update started');
+            error_log('POD Manager: Cache update scheduled');
             return true;
         } catch (Exception $e) {
             error_log('POD Manager: Failed to start cache update: ' . $e->getMessage());
@@ -540,6 +541,15 @@ class POD_Printify_Platform {
      * @return void
      */
     public function process_cache_chunk() {
+        error_log('POD Manager: Processing cache chunk');
+        
+        // Schedule next chunk first to ensure continuity
+        wp_clear_scheduled_hook('pod_printify_process_cache_chunk');
+        if (!wp_next_scheduled('pod_printify_process_cache_chunk')) {
+            wp_schedule_single_event(time() + 5, 'pod_printify_process_cache_chunk');
+            error_log("POD Manager: Next chunk scheduled");
+        }
+
         if (!$this->is_cache_updating()) {
             error_log('POD Manager: Cannot process chunk - cache update not in progress');
             return;
@@ -549,93 +559,63 @@ class POD_Printify_Platform {
         
         $current_blueprint = (int)get_option('pod_printify_cache_current_blueprint', 0);
         $total_blueprints = (int)get_option('pod_printify_cache_total_blueprints', 0);
-        $chunk_size = 5; // Process 5 blueprints at a time
-        $start_time = microtime(true);
-        $timeout = 20; // 20 second timeout per chunk
+        $blueprints = get_option('pod_printify_cache_blueprints', array());
         
-        error_log("POD Manager: Starting cache chunk processing - Current: {$current_blueprint}, Total: {$total_blueprints}");
+        error_log("POD Manager: Processing chunk starting at blueprint {$current_blueprint} of {$total_blueprints}");
         
         try {
-            // First ensure we have a process ID
-            if (!$this->get_running_process()) {
-                $this->set_running_process();
-                error_log('POD Manager: Set process ID for background processing');
-            }
-
-            $blueprints = get_option('pod_printify_cache_blueprints', array());
-            if (empty($blueprints)) {
-                error_log('POD Manager: No cached blueprints found, fetching from API');
-                $blueprints = $this->get_blueprints();
-                if (is_wp_error($blueprints)) {
-                    throw new Exception('Failed to get blueprints: ' . $blueprints->get_error_message());
-                }
-                
-                if (empty($blueprints)) {
-                    error_log('POD Manager: No blueprints found in API response');
-                    $this->complete_cache_update();
-                    return;
-                }
-
-                // Store blueprints for future chunks
-                update_option('pod_printify_cache_blueprints', $blueprints);
-                error_log('POD Manager: Retrieved and stored ' . count($blueprints) . ' blueprints from API');
-            }
-
-            // Store total count first time
-            if ($total_blueprints === 0) {
-                $total_blueprints = count($blueprints);
-                update_option('pod_printify_cache_total_blueprints', $total_blueprints);
-            }
-
+            // Set process ID and start time for this chunk
+            $this->set_running_process();
+            update_option('pod_printify_chunk_start_time', time());
+            
+            // Process a chunk of blueprints
+            $chunk_size = 5; // Process 5 blueprints at a time
             $processed = 0;
+            
             while ($processed < $chunk_size && $current_blueprint < $total_blueprints) {
-                if ((microtime(true) - $start_time) > $timeout) {
-                    error_log('POD Manager: Chunk timeout reached');
+                // Check chunk timeout
+                $chunk_start_time = get_option('pod_printify_chunk_start_time');
+                if ($chunk_start_time && (time() - $chunk_start_time) > $this->max_chunk_time) {
+                    error_log('POD Manager: Chunk timeout reached, scheduling next chunk');
                     break;
                 }
 
+                if (!$this->is_healthy() || $this->should_stop()) {
+                    error_log('POD Manager: System health check failed or stop requested, pausing processing');
+                    break;
+                }
+                
                 $blueprint = $blueprints[$current_blueprint];
                 $this->process_single_blueprint($blueprint);
-                $this->update_last_activity();
                 
                 $current_blueprint++;
                 $processed++;
+                
+                // Update progress
+                $progress = get_option('pod_printify_cache_progress', array());
+                $progress['current'] = $current_blueprint;
+                $progress['percentage'] = ($current_blueprint / $total_blueprints) * 100;
+                $progress['phase'] = 'processing_blueprints';
+                $progress['current_item'] = "Processing blueprint {$current_blueprint} of {$total_blueprints}";
+                $progress['status'] = 'running';
+                $progress['last_update'] = current_time('mysql');
+                update_option('pod_printify_cache_progress', $progress);
+                update_option('pod_printify_cache_current_blueprint', $current_blueprint);
+                
+                $this->update_last_activity();
             }
-
-            // Update progress
-            update_option('pod_printify_cache_current_blueprint', $current_blueprint);
             
-            // Check if we're done
+            // If we've processed all blueprints, complete the update
             if ($current_blueprint >= $total_blueprints) {
+                error_log('POD Manager: Cache update complete');
+                wp_clear_scheduled_hook('pod_printify_process_cache_chunk');
                 $this->complete_cache_update();
             }
             
-            // Schedule the next chunk
-            if ($current_blueprint < $total_blueprints) {
-                error_log('POD Manager: Scheduling next chunk');
-                wp_schedule_single_event(time(), 'pod_printify_process_cache_chunk');
-            }
-            
         } catch (Exception $e) {
-            error_log('POD Manager: Error processing cache chunk: ' . $e->getMessage());
-            error_log('POD Manager: Stack trace: ' . $e->getTraceAsString());
-            
-            // Update progress with error
-            $progress = get_option('pod_printify_cache_progress', array());
-            $progress['status'] = 'error';
-            $progress['error'] = $e->getMessage();
-            update_option('pod_printify_cache_progress', $progress);
-            
-            // Determine retry delay based on error type
-            $delay = $this->retry_delays['default'];
-            if (strpos($e->getMessage(), 'timeout') !== false || 
-                strpos($e->getMessage(), 'SSL connection') !== false) {
-                $delay = $this->retry_delays['timeout'];
-                error_log("POD Manager: Timeout detected, using longer retry delay of {$delay}s");
-            }
-            
-            // Schedule retry after delay
-            wp_schedule_single_event(time() + $delay, 'pod_printify_process_cache_chunk');
+            error_log('POD Manager: Error processing chunk: ' . $e->getMessage());
+            wp_clear_scheduled_hook('pod_printify_process_cache_chunk');
+            $this->cancel_cache_update();
         }
     }
 
@@ -646,6 +626,17 @@ class POD_Printify_Platform {
      * @return void
      */
     private function process_single_blueprint(array $blueprint) {
+        // Get total counts
+        $total_blueprints = (int)get_option('pod_printify_cache_total_blueprints', 0);
+        $current_blueprint = (int)get_option('pod_printify_cache_current_blueprint', 0) + 1;
+
+        // Update progress to show current blueprint
+        $progress = get_option('pod_printify_cache_progress', array());
+        $progress['phase'] = 'processing_blueprint';
+        $progress['current_item'] = "Processing blueprint {$current_blueprint} of {$total_blueprints}";
+        $progress['status'] = 'running';
+        update_option('pod_printify_cache_progress', $progress);
+        
         // Store blueprint
         $result = $this->store_blueprint($blueprint);
         if (is_wp_error($result)) {
@@ -658,7 +649,16 @@ class POD_Printify_Platform {
             throw new Exception('Failed to get providers: ' . $providers->get_error_message());
         }
 
+        $total_providers = count($providers);
+        $current_provider = 0;
+
         foreach ($providers as $provider) {
+            $current_provider++;
+            // Update progress for each provider
+            $progress['phase'] = 'processing_providers';
+            $progress['current_item'] = "Processing provider {$current_provider} of {$total_providers} (Blueprint {$current_blueprint} of {$total_blueprints})";
+            update_option('pod_printify_cache_progress', $progress);
+            
             $result = $this->store_provider($provider, $blueprint['id']);
             if (is_wp_error($result)) {
                 throw new Exception('Failed to store provider: ' . $result->get_error_message());
@@ -676,7 +676,17 @@ class POD_Printify_Platform {
                 continue;
             }
 
+            $total_variants = count($variants_response['variants']);
+            $current_variant = 0;
+
             foreach ($variants_response['variants'] as $variant) {
+                $current_variant++;
+                
+                // Update progress for each variant
+                $progress['phase'] = 'processing_variants';
+                $progress['current_item'] = "Processing variant {$current_variant} of {$total_variants} (Provider {$current_provider} of {$total_providers}, Blueprint {$current_blueprint} of {$total_blueprints})";
+                update_option('pod_printify_cache_progress', $progress);
+                
                 if (!is_array($variant)) {
                     error_log('POD Manager: Invalid variant data structure: ' . print_r($variant, true));
                     continue;
@@ -689,6 +699,10 @@ class POD_Printify_Platform {
                 }
             }
         }
+        
+        // Update final progress for this blueprint
+        $progress['current_item'] = "Completed processing blueprint {$current_blueprint} of {$total_blueprints}";
+        update_option('pod_printify_cache_progress', $progress);
     }
 
     /**
@@ -887,25 +901,23 @@ class POD_Printify_Platform {
      * @return bool
      */
     public function is_cache_updating(): bool {
-        // First check if there's an actual process running
-        $process_id = $this->get_running_process();
-        if (!$process_id) {
-            // No process running, clean up any stale flags
-            if (get_option('pod_printify_cache_updating', false)) {
-                error_log('POD Manager: Found stale cache flags with no running process, cleaning up');
-                $this->cancel_cache_update();
-            }
+        $is_updating = get_option('pod_printify_cache_updating', false);
+        if (!$is_updating) {
             return false;
         }
 
-        // Process exists, check if it's still active
+        // Check if the process is still active based on last activity
         $last_activity = get_option('pod_printify_last_activity', 0);
-        $current_time = time();
-        
-        // If no activity for more than 5 minutes, terminate the process
-        if ($current_time - $last_activity > 300) {
-            error_log('POD Manager: Process appears stuck, attempting to terminate');
-            $this->terminate_cache_update();
+        if ($last_activity && (time() - $last_activity) > 120) {
+            error_log('POD Manager: Cache update appears to be stuck (no activity for 120s), cleaning up');
+            $this->cancel_cache_update();
+            return false;
+        }
+
+        // Check if there's a scheduled chunk
+        if (!wp_next_scheduled('pod_printify_process_cache_chunk')) {
+            error_log('POD Manager: No scheduled cache chunk found, cleaning up');
+            $this->cancel_cache_update();
             return false;
         }
 
@@ -915,7 +927,7 @@ class POD_Printify_Platform {
     /**
      * Terminate any running cache update process
      */
-    private function terminate_cache_update(): void {
+    public function terminate_cache_update(): void {
         $process_id = $this->get_running_process();
         if (!$process_id) {
             return;
@@ -925,19 +937,35 @@ class POD_Printify_Platform {
 
         // Try to terminate the process
         if (function_exists('posix_kill')) {
-            posix_kill($process_id, SIGTERM);
+            // First try SIGTERM (15) for graceful shutdown
+            posix_kill($process_id, 15);
             sleep(1); // Give it a second to clean up
             
-            // If it's still running, force kill
-            if (posix_kill($process_id, 0)) {
-                error_log("POD Manager: Process {$process_id} still running, force killing");
-                posix_kill($process_id, SIGKILL);
+            // Check if it's still running
+            if (@posix_kill($process_id, 0)) {
+                error_log("POD Manager: Process {$process_id} still running after SIGTERM, using SIGKILL");
+                // Force kill with SIGKILL (9)
+                posix_kill($process_id, 9);
+                
+                // Double check it's dead
+                sleep(1);
+                if (@posix_kill($process_id, 0)) {
+                    error_log("POD Manager: Process {$process_id} still running after SIGKILL!");
+                } else {
+                    error_log("POD Manager: Process {$process_id} terminated successfully");
+                }
+            } else {
+                error_log("POD Manager: Process {$process_id} terminated gracefully");
             }
+        } else {
+            error_log('POD Manager: posix_kill not available');
         }
 
         // Clean up our tracking
         $this->clear_running_process();
-        $this->cancel_cache_update();
+        
+        // Set emergency stop flag
+        set_transient('pod_printify_emergency_stop', true, 3600);
     }
 
     /**
@@ -946,200 +974,46 @@ class POD_Printify_Platform {
      * @return bool
      */
     public function cancel_cache_update(): bool {
-        error_log('POD Manager: Canceling cache update');
+        error_log('POD Manager: Cancelling cache update');
         
-        // Update progress
-        $progress = get_option('pod_printify_cache_progress', array());
-        $progress['status'] = 'cancelled';
-        $progress['phase'] = 'cancelled';
-        $progress['message'] = 'Cache update cancelled';
-        $progress['cancelled_at'] = current_time('mysql');
-        update_option('pod_printify_cache_progress', $progress);
+        // First try to terminate any running process
+        $this->terminate_cache_update();
         
-        // Clear all processing flags
+        // Set the emergency stop flag
+        set_transient('pod_printify_emergency_stop', true, 3600);
+        
+        // Clean up all cache-related options
         delete_option('pod_printify_cache_updating');
+        delete_option('pod_printify_all_products_detailed_temp');
         delete_option('pod_printify_cache_current_blueprint');
         delete_option('pod_printify_cache_blueprints');
         delete_option('pod_printify_cache_start_time');
         delete_option('pod_printify_force_stop');
-        delete_transient('pod_printify_emergency_stop');
-        
-        // Clear process ID
-        $this->clear_running_process();
+        delete_transient('pod_printify_cache_process');
         
         // Clear any scheduled tasks
         wp_clear_scheduled_hook('pod_printify_process_cache_chunk');
         
-        error_log('POD Manager: Cache update cancelled successfully');
-        return true;
-    }
-
-    /**
-     * Complete cache update
-     *
-     * @return void
-     */
-    private function complete_cache_update(): void {
-        error_log('POD Manager: Completing cache update');
-        
-        // Update progress
-        $progress = array(
-            'status' => 'complete',
-            'phase' => 'completed',
-            'current' => get_option('pod_printify_cache_total_blueprints', 0),
-            'total' => get_option('pod_printify_cache_total_blueprints', 0),
-            'percentage' => 100,
-            'message' => 'Cache update completed',
-            'completed_at' => current_time('mysql')
-        );
+        // Update progress to cancelled state
+        $progress = get_option('pod_printify_cache_progress', array());
+        $progress['status'] = 'cancelled';
+        $progress['current_item'] = 'Cache update cancelled';
+        $progress['cancelled_at'] = current_time('mysql');
         update_option('pod_printify_cache_progress', $progress);
         
-        // Clear processing flags
-        delete_option('pod_printify_cache_updating');
-        delete_option('pod_printify_cache_current_blueprint');
-        delete_option('pod_printify_cache_blueprints');
-        delete_option('pod_printify_cache_start_time');
-        
-        // Record completion time
-        update_option('pod_printify_last_cache_update', current_time('mysql'));
-        update_option('pod_printify_last_activity', time());
-        
-        // Clear process ID
-        $this->clear_running_process();
-        
-        error_log('POD Manager: Cache update completed successfully');
-    }
-
-    /**
-     * Get all cached blueprints
-     *
-     * @return array
-     */
-    public function get_cached_blueprints(): array {
-        global $wpdb;
-        $table = $wpdb->prefix . 'pod_printify_blueprints';
-        
-        $results = $wpdb->get_results("SELECT * FROM {$table} ORDER BY title ASC", ARRAY_A);
-        if (!$results) {
-            return array();
-        }
-
-        return array_map(function($row) {
-            return json_decode($row['data'], true);
-        }, $results);
-    }
-
-    /**
-     * Get cached blueprint by ID
-     *
-     * @param string $blueprint_id Blueprint ID
-     * @return array|null
-     */
-    public function get_cached_blueprint(string $blueprint_id): ?array {
-        global $wpdb;
-        $table = $wpdb->prefix . 'pod_printify_blueprints';
-        
-        $row = $wpdb->get_row(
-            $wpdb->prepare(
-                "SELECT * FROM {$table} WHERE blueprint_id = %s",
-                $blueprint_id
-            ),
-            ARRAY_A
-        );
-
-        if (!$row) {
-            return null;
-        }
-
-        return json_decode($row['data'], true);
-    }
-
-    /**
-     * Get cached providers for a blueprint
-     *
-     * @param string $blueprint_id Blueprint ID
-     * @return array
-     */
-    public function get_cached_blueprint_providers(string $blueprint_id): array {
-        global $wpdb;
-        $table = $wpdb->prefix . 'pod_printify_providers';
-        
-        $query = $wpdb->prepare(
-            "SELECT * FROM {$table} WHERE blueprint_id = %s",
-            $blueprint_id
-        );
-        
-        $results = $wpdb->get_results($query);
-        if (!$results) {
-            return array();
-        }
-        
-        $providers = array();
-        foreach ($results as $row) {
-            $providers[] = json_decode($row->data, true);
-        }
-        
-        return $providers;
-    }
-
-    /**
-     * Get cached variants for a blueprint and provider
-     *
-     * @param string $blueprint_id Blueprint ID
-     * @param string $provider_id Provider ID
-     * @return array
-     */
-    public function get_cached_variants(string $blueprint_id, string $provider_id): array {
-        global $wpdb;
-        $table = $wpdb->prefix . 'pod_printify_variants';
-        
-        $results = $wpdb->get_results(
-            $wpdb->prepare(
-                "SELECT * FROM {$table} WHERE blueprint_id = %s AND provider_id = %s",
-                $blueprint_id,
-                $provider_id
-            ),
-            ARRAY_A
-        );
-
-        if (!$results) {
-            return array();
-        }
-
-        return array_map(function($row) {
-            return json_decode($row['data'], true);
-        }, $results);
-    }
-
-    /**
-     * Get all cached product details
-     * This maintains compatibility with the old format
-     *
-     * @return array
-     */
-    public function get_all_cached_products(): array {
-        $all_products = array();
-        
-        // Get all blueprints
-        $blueprints = $this->get_cached_blueprints();
-        
-        foreach ($blueprints as $blueprint) {
-            $providers = $this->get_cached_blueprint_providers($blueprint['id']);
-            
-            foreach ($providers as $provider) {
-                $variants = $this->get_cached_variants($blueprint['id'], $provider['id']);
-                
-                if (!empty($variants)) {
-                    $all_products[] = array(
-                        'blueprint' => $blueprint,
-                        'provider' => $provider,
-                        'variants' => $variants
-                    );
-                }
+        // Force process termination
+        $process_id = $this->get_running_process();
+        if ($process_id) {
+            error_log("POD Manager: Force killing process {$process_id}");
+            if (function_exists('posix_kill')) {
+                // Force kill with SIGKILL (9)
+                posix_kill($process_id, 9);
             }
+            $this->clear_running_process();
         }
         
-        return $all_products;
+        error_log('POD Manager: Cache update cancelled and cleaned up');
+        return true;
     }
 
     /**
@@ -1166,5 +1040,31 @@ class POD_Printify_Platform {
      */
     private function update_last_activity() {
         update_option('pod_printify_cache_last_update', time());
+    }
+
+    /**
+     * Check if cache update should be stopped
+     */
+    private function should_stop(): bool {
+        return get_transient('pod_printify_emergency_stop') === true;
+    }
+
+    /**
+     * Complete the cache update process
+     */
+    private function complete_cache_update() {
+        $progress = get_option('pod_printify_cache_progress', array());
+        $progress['status'] = 'complete';
+        $progress['phase'] = 'completed';
+        $progress['current_item'] = 'Cache update completed';
+        $progress['percentage'] = 100;
+        $progress['last_update'] = current_time('mysql');
+        update_option('pod_printify_cache_progress', $progress);
+        
+        update_option('pod_printify_cache_updating', false);
+        update_option('pod_printify_last_cache_update', current_time('mysql'));
+        
+        $this->clear_running_process();
+        error_log('POD Manager: Cache update completed successfully');
     }
 }

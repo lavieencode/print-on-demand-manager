@@ -15,6 +15,12 @@ class POD_Admin_Ajax {
         add_action('wp_ajax_pod_debug_cache', array($this, 'debug_cache'));
         add_action('wp_ajax_pod_debug_cache_force_reset', array($this, 'debug_cache_force_reset'));
         
+        // Quick Add Wizard handlers
+        add_action('wp_ajax_pod_create_products', array($this, 'create_products'));
+        add_action('wp_ajax_pod_upload_patterns', array($this, 'upload_patterns'));
+        add_action('wp_ajax_pod_save_product_config', array($this, 'save_product_config'));
+        add_action('wp_ajax_pod_save_design_settings', array($this, 'save_design_settings'));
+        
         // Add nonces to admin page
         add_action('admin_enqueue_scripts', array($this, 'add_admin_nonces'));
         
@@ -45,7 +51,11 @@ class POD_Admin_Ajax {
                 'cancel_cache' => wp_create_nonce('pod_ajax_nonce'),
                 'view_cache' => wp_create_nonce('pod_ajax_nonce'),
                 'debug_cache' => wp_create_nonce('pod_ajax_nonce'),
-                'verify_connection' => wp_create_nonce('pod_ajax_nonce')
+                'verify_connection' => wp_create_nonce('pod_ajax_nonce'),
+                'create_products' => wp_create_nonce('pod_ajax_nonce'),
+                'upload_patterns' => wp_create_nonce('pod_ajax_nonce'),
+                'save_product_config' => wp_create_nonce('pod_ajax_nonce'),
+                'save_design_settings' => wp_create_nonce('pod_ajax_nonce')
             ),
             'debug' => WP_DEBUG
         ));
@@ -56,7 +66,11 @@ class POD_Admin_Ajax {
             'cancel_cache' => wp_create_nonce('pod_ajax_nonce'),
             'view_cache' => wp_create_nonce('pod_ajax_nonce'),
             'debug_cache' => wp_create_nonce('pod_ajax_nonce'),
-            'verify_connection' => wp_create_nonce('pod_ajax_nonce')
+            'verify_connection' => wp_create_nonce('pod_ajax_nonce'),
+            'create_products' => wp_create_nonce('pod_ajax_nonce'),
+            'upload_patterns' => wp_create_nonce('pod_ajax_nonce'),
+            'save_product_config' => wp_create_nonce('pod_ajax_nonce'),
+            'save_design_settings' => wp_create_nonce('pod_ajax_nonce')
         ))));
     }
 
@@ -77,7 +91,7 @@ class POD_Admin_Ajax {
      * Verify API connection
      */
     public function verify_connection() {
-        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'pod_verify_connection')) {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'pod_ajax_nonce')) {
             $this->send_json_response(false, array('message' => 'Security check failed'));
             return;
         }
@@ -118,7 +132,7 @@ class POD_Admin_Ajax {
     public function refresh_cache() {
         error_log('POD Manager: Refresh cache called');
 
-        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'pod_refresh_cache')) {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'pod_ajax_nonce')) {
             error_log('POD Manager: Nonce verification failed');
             wp_send_json_error(array('message' => 'Security check failed'));
             return;
@@ -197,7 +211,7 @@ class POD_Admin_Ajax {
         $is_internal = isset($args['internal_call']) && $args['internal_call'];
         
         if (!$is_internal) {
-            if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'pod_process_cache_update')) {
+            if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'pod_ajax_nonce')) {
                 error_log('POD Manager: Nonce verification failed');
                 wp_send_json_error(array('message' => 'Security check failed'));
                 return;
@@ -247,41 +261,90 @@ class POD_Admin_Ajax {
      * Cancel cache update
      */
     public function cancel_cache() {
-        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'pod_cancel_cache')) {
-            wp_send_json_error('Security check failed');
-            return;
-        }
+        error_log('POD Manager: Cancel request received');
         
-        if (!current_user_can('manage_options')) {
-            wp_send_json_error('Insufficient permissions');
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'pod_ajax_nonce')) {
+            error_log('POD Manager: Invalid nonce for cancel_cache');
+            wp_send_json_error(array('message' => 'Security check failed'));
             return;
         }
 
-        // Get current progress before cancelling
-        $progress = get_option('pod_printify_cache_progress', array());
-        $progress['status'] = 'cancelled';
-        $progress['last_update'] = current_time('mysql');
-        update_option('pod_printify_cache_progress', $progress);
-        
-        // Clean up
-        delete_option('pod_printify_cache_updating');
-        
-        wp_send_json_success($progress);
+        if (!current_user_can('manage_options')) {
+            error_log('POD Manager: Unauthorized access to cancel_cache');
+            wp_send_json_error(array('message' => 'Unauthorized access'));
+            return;
+        }
+
+        try {
+            $platform = POD_Printify_Platform::get_instance();
+            
+            // First try to terminate any running process
+            $platform->terminate_cache_update();
+            
+            // Then cancel and clean up
+            $result = $platform->cancel_cache_update();
+            
+            error_log('POD Manager: Cancel result: ' . print_r($result, true));
+            
+            // Force status update
+            $progress = get_option('pod_printify_cache_progress', array());
+            $progress['status'] = 'cancelled';
+            $progress['current_item'] = 'Cache update cancelled';
+            $progress['cancelled_at'] = current_time('mysql');
+            update_option('pod_printify_cache_progress', $progress);
+            
+            // Clean up
+            delete_option('pod_printify_cache_updating');
+            delete_transient('pod_printify_cache_process');
+            delete_transient('pod_printify_emergency_stop');
+            
+            wp_send_json_success(array(
+                'message' => 'Cache update cancelled successfully',
+                'progress' => $progress
+            ));
+        } catch (Exception $e) {
+            error_log('POD Manager: Failed to cancel cache update: ' . $e->getMessage());
+            wp_send_json_error(array(
+                'message' => 'Failed to cancel cache update: ' . $e->getMessage()
+            ));
+        }
     }
 
     /**
      * Get cache update status
      */
     public function get_cache_status() {
-        check_ajax_referer('pod_ajax_nonce', 'nonce');
-        
-        if (!current_user_can('manage_options')) {
-            wp_send_json_error('Unauthorized');
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'pod_ajax_nonce')) {
+            error_log('POD Manager: Invalid or missing nonce for get_cache_status');
+            wp_send_json_error(array(
+                'message' => 'Security check failed'
+            ), 403);
+            return;
         }
-        
+
+        if (!current_user_can('manage_options')) {
+            error_log('POD Manager: Unauthorized access to get_cache_status');
+            wp_send_json_error(array(
+                'message' => 'Unauthorized access'
+            ), 403);
+            return;
+        }
+
         $platform = POD_Printify_Platform::get_instance();
         $progress = get_option('pod_printify_cache_progress', array());
         $last_activity = (int)get_option('pod_printify_last_activity', 0);
+        $process_id = get_transient('pod_printify_cache_process');
+        
+        // Add default values if not set
+        $progress = array_merge(array(
+            'status' => 'unknown',
+            'phase' => '',
+            'current_item' => '',
+            'current' => 0,
+            'total' => 0,
+            'percentage' => 0,
+            'last_update' => ''
+        ), $progress);
         
         // Check for timeout (2 minutes without activity)
         if ($progress['status'] === 'running' && 
@@ -296,24 +359,31 @@ class POD_Admin_Ajax {
             update_option('pod_printify_cache_progress', $progress);
         }
         
+        // Check if we're actually updating
+        $is_updating = $platform->is_cache_updating();
+        if ($is_updating && $progress['status'] !== 'running') {
+            $progress['status'] = 'running';
+            update_option('pod_printify_cache_progress', $progress);
+        } else if (!$is_updating && $progress['status'] === 'running') {
+            $progress['status'] = 'error';
+            $progress['error'] = 'Cache update process died unexpectedly';
+            update_option('pod_printify_cache_progress', $progress);
+        }
+        
         $response = array(
-            'success' => true,
-            'data' => array(
-                'status' => $progress['status'] ?? 'unknown',
-                'phase' => $progress['phase'] ?? '',
-                'current' => $progress['current'] ?? 0,
-                'total' => $progress['total'] ?? 0,
-                'percentage' => $progress['percentage'] ?? 0,
-                'message' => $progress['message'] ?? '',
-                'error' => $progress['error'] ?? '',
-                'last_activity' => $last_activity,
-                'current_time' => time(),
-                'is_updating' => $platform->is_cache_updating(),
-                'process_id' => $platform->get_running_process()
+            'is_running' => $progress['status'] === 'running',
+            'is_complete' => $progress['status'] === 'complete',
+            'progress' => $progress,
+            'debug_info' => array(
+                'process_id' => $process_id,
+                'last_activity' => $last_activity ? date('Y-m-d H:i:s', $last_activity) : 'never',
+                'last_activity_age' => $last_activity ? human_time_diff($last_activity) : 'never',
+                'is_updating' => $is_updating
             )
         );
         
-        wp_send_json($response);
+        error_log('POD Manager: Cache status response: ' . print_r($response, true));
+        wp_send_json_success($response);
     }
 
     /**
@@ -382,7 +452,7 @@ class POD_Admin_Ajax {
      * Debug function to force reset cache flags
      */
     public function debug_cache_force_reset() {
-        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'pod_debug_cache')) {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'pod_ajax_nonce')) {
             wp_send_json_error(array('message' => 'Security check failed'));
             return;
         }
@@ -506,5 +576,179 @@ class POD_Admin_Ajax {
                 'message' => 'Failed to get cache data: ' . $e->getMessage()
             ));
         }
+    }
+
+    /**
+     * Handle product creation from wizard
+     */
+    public function create_products() {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'pod_ajax_nonce')) {
+            wp_send_json_error(array('message' => 'Security check failed'));
+            return;
+        }
+
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error(array('message' => 'Insufficient permissions'));
+            return;
+        }
+
+        // Get wizard state
+        $wizard_state = json_decode(stripslashes($_POST['wizard_state']), true);
+        if (!$wizard_state) {
+            wp_send_json_error(array('message' => 'Invalid wizard state'));
+            return;
+        }
+
+        // Get platform instance
+        $printify = POD_Printify_Platform::get_instance();
+
+        try {
+            // Process pattern files
+            $pattern_files = array();
+            foreach ($_FILES as $key => $file) {
+                if (strpos($key, 'pattern_') === 0) {
+                    $upload = wp_handle_upload($file, array('test_form' => false));
+                    if (isset($upload['error'])) {
+                        throw new Exception('Failed to upload pattern: ' . $upload['error']);
+                    }
+                    $pattern_files[] = $upload['url'];
+                }
+            }
+
+            // Create products for each selected product
+            $created_products = array();
+            foreach ($wizard_state['selectedProducts'] as $product) {
+                $config = $wizard_state['productConfigs'][$product['id']];
+                
+                // Prepare product data
+                $product_data = array(
+                    'title' => str_replace(
+                        array('{pattern_name}', '{product_name}'),
+                        array($wizard_state['mainPattern']['file']['name'], $product['title']),
+                        $wizard_state['finalSettings']['title_format']
+                    ),
+                    'description' => str_replace(
+                        array('{pattern_name}', '{product_name}', '{materials}'),
+                        array($wizard_state['mainPattern']['file']['name'], $product['title'], $product['materials']),
+                        $wizard_state['finalSettings']['description_template']
+                    ),
+                    'print_provider_id' => $config['provider_id'],
+                    'print_areas' => array(
+                        'front' => array(
+                            'src' => $wizard_state['mainPattern']['dataUrl'],
+                            'position' => $wizard_state['designSettings']['position'],
+                            'scale' => $wizard_state['designSettings']['scale']
+                        )
+                    ),
+                    'variants' => $config['variants'],
+                    'price_adjustment' => array(
+                        'type' => $wizard_state['finalSettings']['price_adjustment'],
+                        'value' => floatval($wizard_state['finalSettings']['price_value'])
+                    )
+                );
+
+                // Create product
+                $result = $printify->create_product($product_data);
+                if (is_wp_error($result)) {
+                    throw new Exception('Failed to create product ' . $product['title'] . ': ' . $result->get_error_message());
+                }
+
+                $created_products[] = $result;
+            }
+
+            wp_send_json_success(array(
+                'message' => count($created_products) . ' products created successfully',
+                'products' => $created_products
+            ));
+
+        } catch (Exception $e) {
+            wp_send_json_error(array('message' => $e->getMessage()));
+        }
+    }
+
+    /**
+     * Handle pattern file uploads
+     */
+    public function upload_patterns() {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'pod_ajax_nonce')) {
+            wp_send_json_error(array('message' => 'Security check failed'));
+            return;
+        }
+
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error(array('message' => 'Insufficient permissions'));
+            return;
+        }
+
+        try {
+            $uploaded_files = array();
+            foreach ($_FILES as $file) {
+                $upload = wp_handle_upload($file, array('test_form' => false));
+                if (isset($upload['error'])) {
+                    throw new Exception('Failed to upload file: ' . $upload['error']);
+                }
+                $uploaded_files[] = $upload;
+            }
+
+            wp_send_json_success(array(
+                'message' => count($uploaded_files) . ' files uploaded successfully',
+                'files' => $uploaded_files
+            ));
+
+        } catch (Exception $e) {
+            wp_send_json_error(array('message' => $e->getMessage()));
+        }
+    }
+
+    /**
+     * Save product configuration
+     */
+    public function save_product_config() {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'pod_ajax_nonce')) {
+            wp_send_json_error(array('message' => 'Security check failed'));
+            return;
+        }
+
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error(array('message' => 'Insufficient permissions'));
+            return;
+        }
+
+        $config = json_decode(stripslashes($_POST['config']), true);
+        if (!$config) {
+            wp_send_json_error(array('message' => 'Invalid configuration data'));
+            return;
+        }
+
+        wp_send_json_success(array(
+            'message' => 'Configuration saved successfully',
+            'config' => $config
+        ));
+    }
+
+    /**
+     * Save design settings
+     */
+    public function save_design_settings() {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'pod_ajax_nonce')) {
+            wp_send_json_error(array('message' => 'Security check failed'));
+            return;
+        }
+
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error(array('message' => 'Insufficient permissions'));
+            return;
+        }
+
+        $settings = json_decode(stripslashes($_POST['settings']), true);
+        if (!$settings) {
+            wp_send_json_error(array('message' => 'Invalid settings data'));
+            return;
+        }
+
+        wp_send_json_success(array(
+            'message' => 'Design settings saved successfully',
+            'settings' => $settings
+        ));
     }
 }

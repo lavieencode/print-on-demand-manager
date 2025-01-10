@@ -61,8 +61,14 @@ class POD_Admin_Menu {
      */
     public function enqueue_admin_scripts($hook) {
         // Check if we're on any of our plugin pages
-        if (strpos($hook, 'pod-manager') === false) {
-            error_log('POD Manager: Skipping script load for hook: ' . $hook);
+        $valid_hooks = array(
+            'toplevel_page_pod-manager',
+            'pod-manager_page_pod-manager-settings',
+            'pod-manager_page_pod-manager-designer'
+        );
+        
+        if (!in_array($hook, $valid_hooks)) {
+            error_log('POD Manager: Skipping script load for hook: ' . $hook . ' (not in valid hooks)');
             return;
         }
 
@@ -161,5 +167,25 @@ class POD_Admin_Menu {
      */
     public function render_designer_page() {
         require_once POD_MANAGER_PLUGIN_DIR . 'admin/views/designer-page.php';
+    }
+
+    private function render_cache_controls() {
+        ?>
+        <div class="pod-cache-controls">
+            <button type="button" id="pod-update-cache" class="button">
+                <span class="dashicons dashicons-update"></span>
+                Update Cache Now
+            </button>
+            <button type="button" id="pod-debug-cache" class="button">
+                <span class="dashicons dashicons-admin-tools"></span>
+                Reset Cache Flags
+            </button>
+            <button type="button" id="pod-view-cache" class="button">
+                <span class="dashicons dashicons-visibility"></span>
+                View Cache Data
+            </button>
+        </div>
+        <div id="pod-cache-data" style="display: none;"></div>
+        <?php
     }
 }

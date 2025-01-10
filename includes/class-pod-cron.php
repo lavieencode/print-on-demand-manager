@@ -24,6 +24,7 @@ class POD_Cron {
      */
     private function __construct() {
         add_action('pod_printify_cache_products', array($this, 'run_product_cache_update'));
+        add_action('pod_printify_process_cache_chunk', array($this, 'process_cache_chunk'));
         add_filter('cron_schedules', array($this, 'register_cron_schedules'));
         add_action('admin_init', array($this, 'handle_manual_trigger'));
         $this->register_hooks();
@@ -96,50 +97,31 @@ class POD_Cron {
     }
 
     /**
+     * Process a cache chunk via cron
+     */
+    public function process_cache_chunk() {
+        error_log('POD Manager: Processing cache chunk via cron');
+        $printify = POD_Printify_Platform::get_instance();
+        $printify->process_cache_chunk();
+    }
+
+    /**
      * Register cron hooks
      */
     public function register_hooks() {
+        // Register the cache chunk processor hook
         add_action('pod_printify_process_cache_chunk', array($this, 'process_cache_chunk'));
     }
 
     /**
-     * Process a cache chunk
-     */
-    public function process_cache_chunk() {
-        $platform = POD_Printify_Platform::get_instance();
-        
-        // First check if we need to clean up a stale process
-        if ($platform->is_cache_stuck()) {
-            error_log('POD Manager: Cache update appears stuck, cleaning up');
-            $platform->cancel_cache_update();
-            return;
-        }
-
-        // Then check if we should continue processing
-        if (!$platform->is_cache_updating()) {
-            error_log('POD Manager: Cache update not in progress, skipping chunk');
-            return;
-        }
-
-        try {
-            $platform->process_cache_chunk();
-        } catch (Exception $e) {
-            error_log('POD Manager: Error processing cache chunk: ' . $e->getMessage());
-            $platform->cancel_cache_update();
-        }
-    }
-
-    /**
-     * Schedule the cron events
+     * Schedule cron events
      */
     public static function schedule_events() {
-        self::clear_scheduled_events(); // Clear existing events first
+        // Clear any existing scheduled events
+        wp_clear_scheduled_hook('pod_printify_process_cache_chunk');
         
-        if (!wp_next_scheduled('pod_printify_cache_products')) {
-            // Schedule first run for tomorrow at a random hour to spread server load
-            $tomorrow = strtotime('tomorrow') + rand(0, 86400); // Random time tomorrow
-            wp_schedule_event($tomorrow, 'daily', 'pod_printify_cache_products');
-        }
+        // No need to schedule anything here - chunks will be scheduled dynamically
+        error_log('POD Manager: Cron events initialized');
     }
 
     /**
